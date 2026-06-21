@@ -1,0 +1,8 @@
+node_modules/
+dist/
+analysis/
+output/
+.kopai/
+.DS_Store
+*.log
+backend/license-worker/.wrangler/

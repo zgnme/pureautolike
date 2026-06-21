@@ -1,0 +1,16 @@
+name = "pureautolike-license"
+main = "src/worker.js"
+compatibility_date = "2026-06-21"
+workers_dev = true
+preview_urls = false
+
+[vars]
+BETA_ENABLED = "true"
+CHECKOUT_URL = ""
+ALLOWED_EXTENSION_IDS = ""
+WEBHOOK_SECRET = ""
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pureautolike_license"
+database_id = "replace-with-cloudflare-d1-id"

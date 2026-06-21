@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PureAutoLike</title>
+  <link rel="stylesheet" href="src/popup.css">
+</head>
+<body>
+  <main class="popup-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <img class="brand-mark" src="src/icons/pure-eye.png" alt="" aria-hidden="true">
+        <div class="brand-copy">
+          <h1>Pure<span>AutoLike</span></h1>
+          <div class="brand-status" aria-label="Статус PureAutoLike">
+            <i class="status-dot" aria-hidden="true"></i>
+            <p id="statusText">готов</p>
+            <span id="statusPill" class="status-pill">OFF</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <span id="licenseBadge" class="license-badge beta" title="Free during beta">BETA</span>
+        <a id="feedbackLink" class="feedback-link" href="https://github.com/zgnoff/pureautolike/issues/new/choose" target="_blank" rel="noreferrer" data-i18n="feedback">Feedback</a>
+        <button id="languageToggle" class="language-toggle" type="button" aria-label="Switch language">RU / EN</button>
+        <section class="like-chip" aria-label="Лайки">
+          <img src="src/icons/like-heart.png" alt="" aria-hidden="true">
+          <strong id="likes">0</strong>
+        </section>
+      </div>
+    </header>
+
+    <section class="run-strip" aria-label="Запуск PureAutoLike">
+      <button id="toggle" class="primary" type="button">
+        <img src="src/icons/pure-eye.png" alt="" aria-hidden="true">
+        <span>
+          <strong id="toggleLabel">Запустить</strong>
+          <small id="toggleHint">Auto like</small>
+        </span>
+      </button>
+      <p id="timerStatus" class="timer-status">Таймеры выключены</p>
+    </section>
+
+    <section class="workspace" aria-label="Панель PureAutoLike">
+      <section class="control-layout" aria-label="Настройки PureAutoLike">
+        <section class="panel timer-panel" aria-label="Таймеры выключения">
+          <div class="panel-title">
+            <img src="src/icons/timer-alarm.png" alt="" aria-hidden="true">
+            <h2 data-i18n="timers">Таймеры</h2>
+          </div>
+          <div class="timer-grid">
+            <label class="field">
+              <span>
+                <strong data-i18n="autoStop">Выключить автолайкер</strong>
+                <b id="autoStopTimerValue">выкл</b>
+              </span>
+              <small data-i18n="autoStopHint">минут до остановки</small>
+              <input type="number" id="autoStopMinutes" min="0" max="1440" step="1" inputmode="numeric" placeholder="0">
+            </label>
+            <label class="field">
+              <span>
+                <strong data-i18n="closePure">Закрыть вкладку Pure</strong>
+                <b id="closeTabTimerValue">выкл</b>
+              </span>
+              <small data-i18n="closePureHint">минут до закрытия</small>
+              <input type="number" id="closeTabMinutes" min="0" max="1440" step="1" inputmode="numeric" placeholder="0">
+            </label>
+          </div>
+        </section>
+
+        <section id="profileCapturePanel" class="panel capture-panel" aria-label="Сбор описаний анкет">
+          <label class="switch-row">
+            <img src="src/icons/profile-capture.png" alt="" aria-hidden="true">
+            <span>
+              <strong data-i18n="profileCapture">Сбор описаний</strong>
+              <small data-i18n="profileCaptureHint">Markdown для AI</small>
+            </span>
+            <input type="checkbox" id="profileCaptureEnabled">
+            <i></i>
+          </label>
+
+          <div class="capture-tools">
+            <div class="capture-meter">
+              <span data-i18n="collected">Собр.</span>
+              <strong id="profileCaptureCount">0</strong>
+            </div>
+            <button id="profileCaptureExport" class="secondary" type="button">
+              <img src="src/icons/export-markdown.png" alt="" aria-hidden="true">
+              <span data-i18n="exportMd">MD</span>
+            </button>
+            <button id="profileCaptureClear" class="secondary subtle" type="button" data-i18n="clear">Очистить</button>
+          </div>
+          <p id="profileCaptureStatus" class="capture-status">Сбор выключен</p>
+        </section>
+
+        <section id="telegramPanel" class="panel telegram-panel off" aria-label="Telegram">
+          <label class="switch-row">
+            <img src="src/icons/telegram-plane.png" alt="" aria-hidden="true">
+            <span>
+              <strong>Telegram</strong>
+              <small data-i18n="telegramHint">матчи, сообщения, лайки</small>
+            </span>
+            <input type="checkbox" id="telegramEnabled">
+            <i></i>
+          </label>
+
+          <div class="telegram-fields">
+            <label class="field token-field">
+              <span>Bot token</span>
+              <input type="password" id="telegramBotToken" autocomplete="off" placeholder="token от BotFather" data-i18n-placeholder="botTokenPlaceholder">
+            </label>
+
+            <label class="field chat-field">
+              <span>Chat ID</span>
+              <input type="text" id="telegramChatId" autocomplete="off" placeholder="личный chat id или канал" data-i18n-placeholder="chatIdPlaceholder">
+            </label>
+
+            <label class="field cooldown-field">
+              <span data-i18n="cooldown">Пауза, сек</span>
+              <input type="number" id="telegramCooldownSeconds" min="0" step="5">
+            </label>
+
+            <div class="event-grid">
+              <label><input type="checkbox" id="telegramMatches"><span data-i18n="matches">Матчи</span></label>
+              <label><input type="checkbox" id="telegramMessages"><span data-i18n="messages">Сообщения</span></label>
+              <label><input type="checkbox" id="telegramLikes"><span data-i18n="likesEvent">Лайки</span></label>
+            </div>
+
+            <button id="telegramTest" class="secondary telegram-test" type="button" data-i18n="testTelegram">Проверить Telegram</button>
+            <p id="telegramStatus" class="telegram-status">Telegram выключен</p>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <div hidden>
+      <input type="hidden" id="clickJitter" value="0.25">
+      <span id="clickJitterValue">25%</span>
+    </div>
+
+    <p id="lastError" class="last-error"></p>
+  </main>
+
+  <script src="src/popup.js"></script>
+</body>
+</html>

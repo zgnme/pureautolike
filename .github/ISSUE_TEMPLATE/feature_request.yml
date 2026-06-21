@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest an improvement for PureAutoLike.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the improvement without sharing Pure account tokens, Telegram bot tokens, chat IDs, private messages, payment data, or private profile screenshots.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or workflow
+      placeholder: What is hard, slow, confusing, or missing right now?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested change
+      placeholder: What should the extension do differently?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Auto like
+        - Hidden photo opener
+        - Telegram notifications
+        - Timers
+        - Profile capture export
+        - License / beta access
+        - Popup UI
+        - Documentation
+        - Other
+    validations:
+      required: true

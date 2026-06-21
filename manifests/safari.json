@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "PureAutoLike",
+  "description": "Fast Pure autoliker and hidden photo opener for Safari Web Extensions.",
+  "version": "0.1.32",
+  "permissions": [
+    "alarms",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://pure.app/*",
+    "https://pureautolike-license.ziganshinoff.workers.dev/*",
+    "https://api.telegram.org/*"
+  ],
+  "action": {
+    "default_title": "PureAutoLike",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": [
+      "src/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://pure.app/*"
+      ],
+      "js": [
+        "src/content.js"
+      ],
+      "css": [
+        "src/content.css"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/page-bridge.js"
+      ],
+      "matches": [
+        "https://pure.app/*"
+      ]
+    }
+  ]
+}
