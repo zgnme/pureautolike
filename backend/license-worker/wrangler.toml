@@ -5,6 +5,8 @@ workers_dev = true
 preview_urls = false
 
 [vars]
+# Public template values. Set production values in Cloudflare dashboard,
+# Wrangler secrets, or a local untracked config before deploying paid access.
 BETA_ENABLED = "true"
 CHECKOUT_URL = ""
 ALLOWED_EXTENSION_IDS = ""
@@ -13,4 +15,4 @@ WEBHOOK_SECRET = ""
 [[d1_databases]]
 binding = "DB"
 database_name = "pureautolike_license"
-database_id = "a08f1315-346d-4b1c-8b8f-02fdeb3a52eb"
+database_id = "replace-with-cloudflare-d1-id"

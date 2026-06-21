@@ -41,7 +41,7 @@ kept out of the public package.
 ## Permissions
 
 `storage`
-: Saves extension settings such as enabled state, click offset, and optional
+: Saves extension settings such as enabled state, local counters, and optional
 Telegram notification settings. When the optional analysis mode is enabled, it
 also stores collected profile status, age, and descriptions locally for manual
 Markdown export.

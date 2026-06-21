@@ -1,118 +1,123 @@
 # PureAutoLike
 
-Lightweight beta browser extension for Pure Web: fast auto-like flow, local
-browser control, hidden photo opener, and a remote license check for beta access
-and future subscriptions.
+<p align="center">
+  <img src="docs/assets/pureautolike-github-hero.png" alt="PureAutoLike browser extension hero" width="100%">
+</p>
 
 <p align="center">
-  <a href="README.en.md"><strong>English article</strong></a>
+  <strong>Beta browser extension for Pure Web: local auto-like flow, hidden photo opener, Telegram alerts, and subscription-ready license checks.</strong>
+</p>
+
+<p align="center">
+  <a href="README.en.md"><strong>English</strong></a>
   ·
-  <a href="README.ru.md"><strong>Русская статья</strong></a>
+  <a href="README.ru.md"><strong>Русский</strong></a>
   ·
   <a href="INSTALL.md"><strong>Install</strong></a>
   ·
-  <a href="PRIVACY.md"><strong>Privacy Policy</strong></a>
+  <a href="PRIVACY.md"><strong>Privacy</strong></a>
   ·
-  <a href="SECURITY.md"><strong>Privacy & Security</strong></a>
+  <a href="SECURITY.md"><strong>Security</strong></a>
   ·
   <a href="FEEDBACK.md"><strong>Feedback</strong></a>
 </p>
 
-## English
+<p align="center">
+  <img alt="Beta" src="https://img.shields.io/badge/status-free%20beta-ff0a68?style=flat-square">
+  <img alt="WebExtension" src="https://img.shields.io/badge/platform-WebExtension-111111?style=flat-square">
+  <img alt="Local first" src="https://img.shields.io/badge/storage-local%20settings-f5f5f5?style=flat-square&labelColor=111111">
+  <img alt="No analytics" src="https://img.shields.io/badge/analytics-none-32d74b?style=flat-square&labelColor=111111">
+</p>
 
-PureAutoLike is a compact WebExtension for people who use Pure in a browser and
-do not want to install a separate desktop application. It keeps the product
-focused: auto-like visible profiles quickly, avoid repeat clicks during the
-session, open hidden Pure photos from the page when the current browser session
-has access, and optionally send Telegram alerts for new matches, likes, and
-messages. An optional analysis mode can collect visible profile status, age,
-and description locally and export them as Markdown for later AI review.
+PureAutoLike keeps Pure Web automation inside the browser profile where Pure is
+already open. It is built for one job: remove repetitive feed work without a
+separate desktop app, extra tray process, or heavyweight control panel.
 
-The extension runs inside the browser profile. It includes a lightweight remote
-license check for beta access and future subscriptions, but no MCP server,
-chat-history analysis layer, SQLite database, or system tray app.
-Settings are stored in browser extension storage. Telegram bot settings stay in
-that same local extension storage and are sent only from the background script to
-Telegram Bot API when the notification feature is enabled. The Pure session token
-is read inside the active Pure page bridge at runtime; it is not written to the
-repository, extension settings, content script, or background script. Profile
-status, age, and descriptions are collected only when the analysis mode is
-enabled, have no app-side count cap, and are exported or cleared manually by the
-user.
+Keep Pure open. Let the boring likes run. React faster when something actually
+happens.
 
-Read the full English product article: [README.en.md](README.en.md)
+## What It Does
 
-## Русский
-
-PureAutoLike - легкое расширение для Pure Web. Оно нужно, когда хочется получить
-быстрый автолайкер и открытие скрытых фото прямо в браузерном профиле, без
-установки отдельного приложения и без лишнего интерфейса.
-
-Расширение работает локально в браузере: кликает лайки, не повторяет уже
-обработанные анкеты в рамках текущей сессии и добавляет кнопку открытия фото там,
-где Pure показывает скрытое изображение. Также можно включить Telegram-
-уведомления о новых матчах, сообщениях и лайках. Есть легкая проверка
-beta/license access для будущей подписки, но старого отдельного сервера,
-десктопного приложения, MCP-слоя и анализа чатов в этой версии нет. Отдельный
-режим сбора статуса, возраста и описаний анкет можно включить вручную и
-выгрузить результат в Markdown-файл для анализа нейросетью. Числового лимита на
-количество собранных анкет в расширении нет.
-
-Полная русская статья: [README.ru.md](README.ru.md)
-
-## What Is Included
-
-- Chromium build for Chrome, Edge, Yandex Browser, Brave, Opera, Arc, and most
-  Chromium browser profiles.
-- Firefox-compatible build with DOM-click fallback.
-- Safari Web Extension source package for Safari packaging.
-- Local-only popup controls.
-- Single-runner tab lock: duplicate Pure tabs do not start a second autoliker.
-- Duplicate-tab chat history baseline so old Pure messages are not resent to
-  Telegram when a tab is cloned or reloaded.
-- Optional timers to stop the autoliker or close the current Pure tab after a
-  chosen number of minutes.
-- Optional Telegram notifications for Pure matches, messages, and likes.
-- Optional local Markdown export of collected profile status, age, and descriptions.
-- Clear privacy/security notes.
-
-## Regular Browser vs Anti-Detect Profile
-
-PureAutoLike is the same extension in both cases. The difference is the browser
-profile that runs it.
-
-| Usage mode | What changes |
+| Feature | What it means |
 | --- | --- |
-| Regular Chrome/Chromium browser | Easiest setup for a personal Pure Web session. The extension uses the current browser cookies, current Pure login, local extension storage, and the browser's normal network identity. |
-| Anti-detect Chromium profile | Recommended when Pure is already used through a managed browser profile. The extension runs inside that profile and inherits its cookies, proxy, fingerprint, timezone, WebRTC/DNS rules, and other profile-level settings. |
+| Fast auto-like flow | Finds visible Pure like controls and runs the local click flow inside the active browser profile. |
+| Duplicate guard | Avoids re-clicking the same visible profile during the current session. |
+| Hidden photo opener | Adds a page control for Pure hidden-photo placeholders when the active web session already has access. |
+| Telegram alerts | Optional notifications for new Pure matches, likes, and messages. |
+| Profile notes export | Optional local capture of visible status, age, and description, exported manually as Markdown. |
+| Beta license check | Free beta access now, with a backend path ready for future paid subscription enforcement. |
 
-The extension does not replace an anti-detect browser and does not create a
-fingerprint or proxy layer by itself. It only automates the Pure tab inside the
-browser profile where it is installed.
+<p align="center">
+  <img src="docs/assets/pureautolike-workflow-visual.png" alt="PureAutoLike browser workflow visual" width="100%">
+</p>
 
-## Обычный браузер и антидетект-профиль
+## Why It Is Small On Purpose
 
-PureAutoLike устанавливается одинаково, но поведение зависит от профиля браузера.
+Generic autoclickers do not understand the Pure feed. Large desktop automation
+apps add another process, another installation path, and another interface to
+manage. PureAutoLike takes the smaller route: a focused WebExtension that runs
+where the Pure session already lives.
 
-| Режим | Что меняется |
+```mermaid
+flowchart LR
+  A["Pure Web tab"] --> B["Content script"]
+  B --> C["Local popup controls"]
+  B --> D["Auto-like runner"]
+  B --> E["Hidden photo opener"]
+  D --> F["Browser storage"]
+  C --> G["Optional Telegram alerts"]
+  C --> H["License endpoint"]
+```
+
+## Browser Support
+
+| Target | Status |
 | --- | --- |
-| Обычный Chrome/Chromium | Самый простой вариант для личной веб-сессии Pure. Расширение использует текущие cookies, текущий вход в Pure, локальное хранилище расширения и обычную сетевую идентичность браузера. |
-| Антидетект-профиль Chromium | Вариант для тех, кто уже открывает Pure через управляемый профиль. Расширение работает внутри этого профиля и наследует его cookies, proxy, fingerprint, timezone, WebRTC/DNS-правила и другие настройки профиля. |
+| Chrome / Chromium / Edge / Brave / Opera / Arc / Yandex Browser | Recommended build. |
+| Firefox | Supported with DOM-click fallback. |
+| Safari | Safari Web Extension source is included; Safari packaging is separate. |
 
-Расширение не заменяет антидетект-браузер и само не создает fingerprint/proxy
-слой. Оно автоматизирует только вкладку Pure внутри того профиля, куда его
-установили.
+The extension behaves inside the browser profile where it is installed. If Pure
+is already used through a managed Chromium profile, PureAutoLike inherits that
+profile's cookies, proxy, timezone, fingerprint, and network rules. It does not
+provide anti-detect functionality by itself.
+
+## Privacy Position
+
+- Settings are stored in browser extension storage.
+- Telegram bot token and chat id stay in extension storage and are sent only to
+  Telegram Bot API when Telegram alerts are enabled.
+- Profile status, age, and descriptions are stored locally only when the optional
+  capture mode is enabled.
+- The Pure authorization header can be observed inside the active Pure page at
+  runtime for photo-opening requests, but it is not stored in extension settings.
+- The extension does not include third-party analytics.
+
+Read the full policy: [PRIVACY.md](PRIVACY.md)
+
+## Beta And Future Paid Access
+
+The current public build is beta. The extension already contacts a lightweight
+PureAutoLike license endpoint, so beta access can be turned into paid access
+later without shipping a completely different product model.
+
+GitHub release ZIPs and Chrome Web Store builds can both check the license
+endpoint. Local unpacked installs can still run extension code, but production
+access can be controlled by the backend when beta mode is disabled.
+
+## Important Limits
+
+PureAutoLike reduces manual feed work. It does not guarantee matches, replies,
+account reach, ranking, moderation state, or geolocation behavior inside Pure.
+Use it responsibly and follow the rules of the services you use.
 
 ## Install
 
 Public user distribution is planned through the Chrome Web Store beta listing.
-GitHub is used for source, feedback, transparency, and maintainer release
-artifacts. Packaged builds still contact the PureAutoLike license endpoint, so
-future paid access can be enforced by the backend after beta mode is disabled.
+GitHub is used for source transparency, feedback, and maintainer release
+artifacts.
 
 Maintainer notes: [INSTALL.md](INSTALL.md)
-
-## Build And Validate
 
 ```bash
 npm run build
@@ -121,13 +126,17 @@ npm run validate
 npm run audit:clean
 ```
 
-Generated folders are written to `dist/`.
-Release ZIP files are written to `packages/`.
+Generated folders are written to `dist/`. Release ZIP files are written to
+`packages/`.
+
+## Public Marketing Notes
+
+The GitHub presentation plan and generated image prompts are documented in
+[docs/github-marketing-plan.md](docs/github-marketing-plan.md). Search/indexing
+notes live in [docs/seo-indexing.md](docs/seo-indexing.md).
 
 ## Repository Shape
 
 This repository intentionally contains the browser extension distribution plus
 the lightweight license worker used for beta access and future subscriptions.
-The previous desktop app, FastAPI backend, MCP surface, full network monitor,
-chat-history analysis, SQLite storage, and system tray behavior are not part of
-the current GitHub tree.
+It is scoped as a browser-extension product, not a desktop automation suite.

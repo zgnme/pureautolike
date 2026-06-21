@@ -74,4 +74,5 @@ or clearing the extension's browser storage.
 
 ## Contact
 
-For support or privacy questions, contact: ziganshinoff@gmail.com
+For support or privacy questions, use GitHub Issues:
+https://github.com/zgnoff/pureautolike/issues

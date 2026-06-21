@@ -1,5 +1,19 @@
 # PureAutoLike Extension: Fast Local Auto-Liking For Pure Web
 
+<p align="center">
+  <img src="docs/assets/pureautolike-github-hero.png" alt="PureAutoLike browser extension hero" width="100%">
+</p>
+
+<p align="center">
+  <a href="README.md"><strong>Main README</strong></a>
+  ·
+  <a href="INSTALL.md"><strong>Install</strong></a>
+  ·
+  <a href="PRIVACY.md"><strong>Privacy</strong></a>
+  ·
+  <a href="FEEDBACK.md"><strong>Feedback</strong></a>
+</p>
+
 PureAutoLike is a lightweight beta browser extension for Pure Web users who want
 a focused automation tool without installing a separate desktop application.
 
@@ -12,6 +26,9 @@ AI analysis.
 Everything else was intentionally removed from the public extension package so
 the product stays small, understandable, and easy to audit. The current build
 uses a remote license check for free beta access and future subscriptions.
+
+Keep Pure open. Let the repetitive feed work run locally. React faster when
+matches, likes, or messages arrive.
 
 ## Why It Exists
 
@@ -28,8 +45,7 @@ keeps the automation close to the page it controls.
 
 - Fast Pure feed auto-liker for visible profile cards.
 - Session duplicate guard so the same visible profile is not clicked again.
-- Humanized mouse path and click-point jitter on Chromium builds.
-- CDP-level mouse events through the official Chromium `debugger` API when
+- Browser-level mouse events through the official Chromium `debugger` API when
   available.
 - DOM-click fallback for Firefox, Safari, and browsers without debugger support.
 - Hidden photo opener for Pure web placeholders.
@@ -42,6 +58,10 @@ keeps the automation close to the page it controls.
 - Optional Markdown export of collected profile status, age, and descriptions
   for AI review.
 - Small popup with only the controls needed to run the extension.
+
+<p align="center">
+  <img src="docs/assets/pureautolike-workflow-visual.png" alt="PureAutoLike browser workflow visual" width="100%">
+</p>
 
 ## Regular Browser vs Anti-Detect Profile
 
@@ -58,15 +78,17 @@ proxy layer by itself. It controls the Pure page inside the profile where it is
 installed. Anti-detect behavior should be configured in the anti-detect profile;
 the extension then works on top of that environment.
 
-## What Was Removed
+## Repository Boundary
 
-This extension package does not include the old desktop application. It includes
-a lightweight remote license check for beta access and future subscriptions, but
-does not include a FastAPI backend, MCP server, chat-history analysis, full
-network monitor, SQLite database, or system tray behavior.
+This public repository is designed around a small browser extension plus a
+lightweight remote license check for beta access and future subscriptions. It is
+not a desktop automation suite.
 
-That is intentional. The public repository is designed around a small browser
-extension, not a full automation suite.
+## What It Does Not Promise
+
+PureAutoLike reduces manual feed work. It does not guarantee matches, replies,
+account reach, ranking, moderation status, or geolocation behavior inside Pure.
+Use it responsibly and follow the rules of the services you use.
 
 ## Privacy And Security Positioning
 

@@ -1,45 +1,63 @@
 # SEO And Indexing Plan
 
-## Current Indexing Status
+Last checked: 2026-06-21.
 
-The repository is currently private. Private GitHub repositories are not suitable
-as SEO landing pages because search engines cannot crawl their README, releases,
-or package files.
+PureAutoLike is now a public GitHub repository. GitHub can be indexed, but it is
+still a weak landing page compared with a dedicated website because repository
+pages have limited metadata control and search snippets are driven mostly by the
+README, repository description, topics, release names, and inbound links.
 
-Current public-search check for exact project queries did not surface the
-repository. That is expected while the repository remains private.
+## Current Public Search Status
 
-## What Was Added
+Manual search checks for exact project queries did not reliably surface the
+repository yet:
 
-- Root README now works as a bilingual product hub.
-- Separate English article: `README.en.md`.
-- Separate Russian article: `README.ru.md`.
-- Public GitHub feedback flow through issue forms.
-- Clear documentation for regular-browser use versus anti-detect browser
-  profile use.
-- Maintainer packaging command keeps release artifacts in sync with validation.
-- Privacy/security explanation in `SECURITY.md`.
-- Repository package remains extension-only.
+- `PureAutoLike`
+- `PureAutoLike GitHub`
+- `site:github.com/zgnoff/pureautolike PureAutoLike`
 
-## Recommended Public SEO Setup
+That is normal immediately after a repository becomes public or after history
+cleanup. The README and repository metadata should carry the strongest product
+copy first, then the URL should be submitted through Google Search Console and
+Yandex Webmaster if fast indexing matters.
 
-1. Keep this repository private if the code should stay private.
-2. Create a separate public landing page repository or GitHub Pages site.
-3. Put the Russian and English articles on public URLs:
-   - `/en/pureautolike-extension`
-   - `/ru/pureautolike-avtolayker-pure`
-4. Add page titles and descriptions:
-   - EN title: `PureAutoLike Extension - Fast Local Auto-Liker For Pure Web`
-   - EN description: `Lightweight browser extension for Pure Web with fast auto-like flow, local browser control, and hidden photo opener.`
-   - RU title: `PureAutoLike - автолайкер и открытие скрытых фото для Pure Web`
-   - RU description: `Легкое расширение для Pure Web: быстрый автолайкер, локальная работа в браузере и открытие скрытых фото без отдельного приложения.`
-5. Add canonical URLs for each language page.
-6. Add `hreflang` links between Russian and English pages.
-7. Add Open Graph/Twitter metadata for sharing.
-8. Submit the public URLs to Google Search Console and Yandex Webmaster.
-9. Link the public landing page from the GitHub repository homepage field.
+## Repository Metadata Direction
 
-## Keyword Direction
+Recommended public description:
+
+> Beta browser extension for Pure Web: local auto-like flow, hidden photo opener,
+> Telegram alerts, and subscription-ready license checks.
+
+Recommended topics:
+
+- `browser-extension`
+- `chrome-extension`
+- `webextension`
+- `pureautolike`
+- `pure`
+- `dating`
+- `automation`
+- `telegram-notifications`
+
+Use the Chrome Web Store URL as the repository homepage after the listing is
+approved. Until then, use the latest GitHub release or the README anchor.
+
+## README Landing Structure
+
+The root README should work as the product landing page:
+
+1. Hero image with a compact light popup and Pure-inspired visual language.
+2. Short one-sentence product promise.
+3. CTA links: install/release, feedback, privacy, English/Russian articles.
+4. Feature grid focused on real extension behavior.
+5. Workflow visual that explains browser-local automation.
+6. Privacy/security section that says exactly what is stored and sent.
+7. Beta/subscription section that explains free beta access without promising
+   permanent free use.
+8. Honest limitation note: the extension reduces manual work but does not
+   guarantee matches, replies, or account distribution.
+
+## Search Copy Targets
 
 English:
 
@@ -48,6 +66,7 @@ English:
 - Pure hidden photo opener
 - Pure Web automation
 - Chrome extension for Pure
+- Pure Telegram notifications
 
 Russian:
 
@@ -56,34 +75,37 @@ Russian:
 - Pure автолайкер Chrome
 - открытие скрытых фото Pure
 - автоматизация Pure Web
+- Telegram уведомления Pure
 
-## Marketing Positioning
+The copy should be natural and direct. Avoid spammy claims, adult phrasing, and
+guaranteed match numbers. A good public promise is:
 
-Primary message:
+> Stop babysitting the feed. Keep Pure open, let the repetitive likes run, and
+> react faster when matches or messages arrive.
 
-> PureAutoLike is a small browser extension for Pure Web that keeps automation in
-> the browser: fast likes, duplicate protection, and photo opening without a
-> desktop app.
+## Visual Assets
 
-Russian message:
+Current GitHub assets:
 
-> PureAutoLike - легкое расширение для Pure Web: быстрый автолайкер, защита от
-> повторных кликов и открытие скрытых фото без отдельного приложения.
+- `docs/assets/pureautolike-github-hero.png`: generated hero for the README.
+- `docs/assets/pureautolike-workflow-visual.png`: generated workflow visual for
+  the feature section.
+- `store-assets/pureautolike-store-screenshot-1280x800.png`: Chrome Web Store
+  style screenshot/mockup.
+- `store-assets/pureautolike-store-icon-128.png`: store icon.
 
-## Store Listing Direction
+Generated image prompts are intentionally text-free because AI-generated text is
+often unreliable. Product claims, limitations, and CTAs should remain as real
+README text.
 
-Chrome Web Store / Firefox Add-ons copy should emphasize:
+## Publishing Checklist
 
-- lightweight browser extension;
-- local browser execution;
-- no external analytics backend;
-- minimal popup controls;
-- transparent permissions.
-
-Avoid overusing words like "anti-detect" in public marketing pages. They can
-reduce trust, attract the wrong audience, and create unnecessary review friction
-in browser extension stores.
-
-When anti-detect usage is mentioned, frame it as a profile environment boundary:
-the extension inherits the browser profile's proxy, fingerprint, cookies, and
-network settings, but it does not provide anti-detect functionality itself.
+- Keep release assets aligned with `package.json` version.
+- Keep old release tags deleted unless they are intentionally restored.
+- Run `npm run validate` and `npm run audit:clean` before publishing.
+- Scan for tokens, local paths, personal contact details, and real infrastructure
+  ids before each public push.
+- Keep production Cloudflare ids and secrets out of tracked files. Store them in
+  Cloudflare settings, secrets, or local untracked config.
+- Use a dedicated support email later if Chrome Web Store requires one; do not
+  publish a personal email in repository docs by default.
