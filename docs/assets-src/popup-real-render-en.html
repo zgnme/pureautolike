@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PureAutoLike English Popup Render</title>
+  <link rel="stylesheet" href="../../src/popup.css">
+</head>
+<body>
+  <main class="popup-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <img class="brand-mark" src="../../src/icons/pure-eye.png" alt="" aria-hidden="true">
+        <div class="brand-copy">
+          <h1>Pure<span>AutoLike</span></h1>
+          <div class="brand-status" aria-label="PureAutoLike status">
+            <i class="status-dot" aria-hidden="true"></i>
+            <p id="statusText">ready</p>
+            <span id="statusPill" class="status-pill">OFF</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <span id="licenseBadge" class="license-badge beta" title="Free during beta">BETA</span>
+        <a id="feedbackLink" class="feedback-link" href="https://github.com/zgnoff/pureautolike/issues/new/choose" target="_blank" rel="noreferrer">Feedback</a>
+        <button id="languageToggle" class="language-toggle" type="button" aria-label="Switch language">EN / RU</button>
+        <section class="like-chip" aria-label="Likes">
+          <img src="../../src/icons/like-heart.png" alt="" aria-hidden="true">
+          <strong id="likes">0</strong>
+        </section>
+      </div>
+    </header>
+
+    <section class="run-strip" aria-label="Start PureAutoLike">
+      <button id="toggle" class="primary" type="button">
+        <img src="../../src/icons/pure-eye.png" alt="" aria-hidden="true">
+        <span>
+          <strong id="toggleLabel">Start</strong>
+          <small id="toggleHint">Auto like</small>
+        </span>
+      </button>
+      <p id="timerStatus" class="timer-status">Timers off</p>
+    </section>
+
+    <section class="workspace" aria-label="PureAutoLike panel">
+      <section class="control-layout" aria-label="PureAutoLike settings">
+        <section class="panel timer-panel" aria-label="Shutdown timers">
+          <div class="panel-title">
+            <img src="../../src/icons/timer-alarm.png" alt="" aria-hidden="true">
+            <h2>Timers</h2>
+          </div>
+          <div class="timer-grid">
+            <label class="field">
+              <span>
+                <strong>Stop autoliker</strong>
+                <b id="autoStopTimerValue">off</b>
+              </span>
+              <small>minutes to stop</small>
+              <input type="number" id="autoStopMinutes" min="0" max="1440" step="1" inputmode="numeric" placeholder="0">
+            </label>
+            <label class="field">
+              <span>
+                <strong>Close Pure tab</strong>
+                <b id="closeTabTimerValue">off</b>
+              </span>
+              <small>minutes to close</small>
+              <input type="number" id="closeTabMinutes" min="0" max="1440" step="1" inputmode="numeric" placeholder="0">
+            </label>
+          </div>
+        </section>
+
+        <section id="profileCapturePanel" class="panel capture-panel" aria-label="Profile capture">
+          <label class="switch-row">
+            <img src="../../src/icons/profile-capture.png" alt="" aria-hidden="true">
+            <span>
+              <strong>Profile capture</strong>
+              <small>Markdown for AI analysis</small>
+            </span>
+            <input type="checkbox" id="profileCaptureEnabled">
+            <i></i>
+          </label>
+
+          <div class="capture-tools">
+            <div class="capture-meter">
+              <span>Count</span>
+              <strong id="profileCaptureCount">0</strong>
+            </div>
+            <button id="profileCaptureExport" class="secondary" type="button">
+              <img src="../../src/icons/export-markdown.png" alt="" aria-hidden="true">
+              <span>MD</span>
+            </button>
+            <button id="profileCaptureClear" class="secondary subtle" type="button">Clear</button>
+          </div>
+          <p id="profileCaptureStatus" class="capture-status">Capture off</p>
+        </section>
+
+        <section id="telegramPanel" class="panel telegram-panel off" aria-label="Telegram">
+          <label class="switch-row">
+            <img src="../../src/icons/telegram-plane.png" alt="" aria-hidden="true">
+            <span>
+              <strong>Telegram</strong>
+              <small>matches, messages, likes</small>
+            </span>
+            <input type="checkbox" id="telegramEnabled">
+            <i></i>
+          </label>
+
+          <div class="telegram-fields">
+            <label class="field token-field">
+              <span>Bot token</span>
+              <input type="password" id="telegramBotToken" autocomplete="off" placeholder="BotFather token">
+            </label>
+
+            <label class="field chat-field">
+              <span>Chat ID</span>
+              <input type="text" id="telegramChatId" autocomplete="off" placeholder="personal chat id or channel">
+            </label>
+
+            <label class="field cooldown-field">
+              <span>Delay, sec</span>
+              <input type="number" id="telegramCooldownSeconds" min="0" step="5">
+            </label>
+
+            <div class="event-grid">
+              <label><input type="checkbox" id="telegramMatches"><span>Matches</span></label>
+              <label><input type="checkbox" id="telegramMessages"><span>Messages</span></label>
+              <label><input type="checkbox" id="telegramLikes"><span>Likes</span></label>
+            </div>
+
+            <button id="telegramTest" class="secondary telegram-test" type="button">Test Telegram</button>
+            <p id="telegramStatus" class="telegram-status">Telegram off</p>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <div hidden>
+      <input type="hidden" id="clickJitter" value="0.25">
+      <span id="clickJitterValue">25%</span>
+    </div>
+
+    <p id="lastError" class="last-error"></p>
+  </main>
+</body>
+</html>

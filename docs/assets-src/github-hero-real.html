@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1600, initial-scale=1">
+  <title>PureAutoLike GitHub Hero</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 1600px;
+      height: 900px;
+      margin: 0;
+      overflow: hidden;
+      background: #f8f6f1;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      color: #151315;
+    }
+
+    .artboard {
+      position: relative;
+      width: 1600px;
+      height: 900px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 246, 241, 0.92)),
+        #f8f6f1;
+    }
+
+    .artboard::before {
+      position: absolute;
+      right: -190px;
+      top: -170px;
+      width: 760px;
+      height: 760px;
+      border-radius: 80px;
+      background:
+        linear-gradient(45deg, rgba(16, 15, 16, 0.96) 25%, transparent 25% 50%, rgba(16, 15, 16, 0.96) 50% 75%, transparent 75%),
+        #ff0a68;
+      background-size: 150px 150px;
+      transform: rotate(11deg);
+      content: "";
+    }
+
+    .artboard::after {
+      position: absolute;
+      left: -260px;
+      bottom: -290px;
+      width: 920px;
+      height: 540px;
+      border-radius: 50%;
+      background:
+        repeating-radial-gradient(ellipse at center, rgba(255, 10, 104, 0.22) 0 3px, transparent 3px 17px);
+      transform: rotate(-9deg);
+      content: "";
+    }
+
+    .black-band {
+      position: absolute;
+      right: -120px;
+      bottom: -90px;
+      width: 760px;
+      height: 300px;
+      border-radius: 70px 0 0 0;
+      background:
+        repeating-linear-gradient(116deg, rgba(255, 10, 104, 0.2) 0 2px, transparent 2px 20px),
+        #111011;
+      transform: rotate(-6deg);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 100%;
+      height: 100%;
+      grid-template-columns: 510px 1fr;
+      gap: 36px;
+      align-items: center;
+      padding: 86px 86px 78px;
+    }
+
+    .copy {
+      align-self: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      height: 42px;
+      align-items: center;
+      gap: 12px;
+      padding: 0 18px;
+      border: 1px solid rgba(21, 19, 21, 0.1);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 16px 42px rgba(24, 18, 22, 0.08);
+      color: rgba(21, 19, 21, 0.68);
+      font-size: 16px;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #31c44d;
+      box-shadow: 0 0 0 5px rgba(49, 196, 77, 0.14);
+    }
+
+    h1 {
+      margin: 34px 0 0;
+      font-size: 86px;
+      font-weight: 900;
+      line-height: 0.94;
+      letter-spacing: 0;
+    }
+
+    h1 span {
+      color: #f20557;
+    }
+
+    .subhead {
+      max-width: 470px;
+      margin: 24px 0 0;
+      color: rgba(21, 19, 21, 0.68);
+      font-size: 27px;
+      font-weight: 640;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .badge {
+      display: inline-flex;
+      height: 44px;
+      align-items: center;
+      border: 1px solid rgba(21, 19, 21, 0.1);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 12px 30px rgba(24, 18, 22, 0.07);
+      padding: 0 17px;
+      color: rgba(21, 19, 21, 0.72);
+      font-size: 15px;
+      font-weight: 780;
+    }
+
+    .badge.hot {
+      border-color: rgba(242, 5, 87, 0.2);
+      background: rgba(242, 5, 87, 0.08);
+      color: #f20557;
+    }
+
+    .stage {
+      position: relative;
+      min-height: 600px;
+    }
+
+    .browser-card {
+      position: absolute;
+      right: 0;
+      top: 118px;
+      width: 930px;
+      padding: 18px 18px 22px;
+      border: 1px solid rgba(21, 19, 21, 0.1);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: 0 38px 90px rgba(24, 18, 22, 0.2);
+      backdrop-filter: blur(20px) saturate(150%);
+    }
+
+    .windowbar {
+      display: flex;
+      height: 44px;
+      align-items: center;
+      gap: 9px;
+      padding: 0 16px;
+      border-radius: 20px;
+      background: rgba(247, 246, 243, 0.82);
+    }
+
+    .traffic {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+    }
+
+    .red {
+      background: #ff5f57;
+    }
+
+    .yellow {
+      background: #ffbd2e;
+    }
+
+    .green {
+      background: #28c840;
+    }
+
+    .url {
+      flex: 1;
+      height: 26px;
+      margin-left: 12px;
+      border-radius: 999px;
+      background: rgba(21, 19, 21, 0.06);
+    }
+
+    .popup-wrap {
+      margin-top: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(21, 19, 21, 0.12);
+      border-radius: 24px;
+      background: #f7f6f3;
+    }
+
+    .popup-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .label {
+      position: absolute;
+      display: grid;
+      gap: 3px;
+      min-width: 190px;
+      padding: 16px 18px;
+      border: 1px solid rgba(21, 19, 21, 0.1);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 22px 54px rgba(24, 18, 22, 0.15);
+      backdrop-filter: blur(18px) saturate(150%);
+    }
+
+    .label strong {
+      color: #151315;
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: 0;
+      line-height: 1.1;
+    }
+
+    .label span {
+      color: rgba(21, 19, 21, 0.58);
+      font-size: 14px;
+      font-weight: 660;
+      line-height: 1.2;
+    }
+
+    .label.one {
+      left: 60px;
+      top: 34px;
+    }
+
+    .label.two {
+      right: 38px;
+      top: 28px;
+    }
+
+    .label.three {
+      right: 0;
+      bottom: 24px;
+    }
+
+    .spark {
+      position: absolute;
+      width: 46px;
+      height: 46px;
+      transform: rotate(45deg);
+    }
+
+    .spark::before,
+    .spark::after {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      background: #f20557;
+      border-radius: 999px;
+      content: "";
+    }
+
+    .spark::before {
+      width: 46px;
+      height: 13px;
+    }
+
+    .spark::after {
+      width: 13px;
+      height: 46px;
+    }
+
+    .spark.a {
+      right: 62px;
+      top: 95px;
+    }
+
+    .spark.b {
+      left: 5px;
+      bottom: 118px;
+      transform: rotate(20deg) scale(0.72);
+    }
+  </style>
+</head>
+<body>
+  <main class="artboard">
+    <div class="black-band"></div>
+    <section class="content">
+      <section class="copy">
+        <div class="eyebrow"><i class="dot"></i> Real extension UI render</div>
+        <h1>Pure<span>AutoLike</span></h1>
+        <p class="subhead">A compact beta WebExtension for Pure Web: local auto-like flow, hidden photo opener, and Telegram alerts.</p>
+        <div class="badges">
+          <span class="badge hot">Free beta</span>
+          <span class="badge">No desktop app</span>
+          <span class="badge">Local settings</span>
+        </div>
+      </section>
+
+      <section class="stage" aria-label="PureAutoLike real popup render">
+        <div class="spark a"></div>
+        <div class="spark b"></div>
+        <aside class="label one">
+          <strong>Actual popup</strong>
+          <span>Rendered from the repository</span>
+        </aside>
+        <aside class="label two">
+          <strong>Light Pure style</strong>
+          <span>Pink, black, glass, compact</span>
+        </aside>
+        <aside class="label three">
+          <strong>Subscription-ready</strong>
+          <span>Free during beta</span>
+        </aside>
+        <div class="browser-card">
+          <div class="windowbar">
+            <i class="traffic red"></i>
+            <i class="traffic yellow"></i>
+            <i class="traffic green"></i>
+            <i class="url"></i>
+          </div>
+          <div class="popup-wrap">
+            <img src="../assets/pureautolike-popup-real-render.png" alt="Real PureAutoLike popup screenshot">
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

@@ -131,7 +131,7 @@ Generated folders are written to `dist/`. Release ZIP files are written to
 
 ## Public Marketing Notes
 
-The GitHub presentation plan and generated image prompts are documented in
+The GitHub presentation plan and real-render asset sources are documented in
 [docs/github-marketing-plan.md](docs/github-marketing-plan.md). Search/indexing
 notes live in [docs/seo-indexing.md](docs/seo-indexing.md).
 

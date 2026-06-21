@@ -87,16 +87,18 @@ guaranteed match numbers. A good public promise is:
 
 Current GitHub assets:
 
-- `docs/assets/pureautolike-github-hero.png`: generated hero for the README.
-- `docs/assets/pureautolike-workflow-visual.png`: generated workflow visual for
+- `docs/assets/pureautolike-github-hero.png`: rendered hero for the README.
+- `docs/assets/pureautolike-workflow-visual.png`: rendered workflow visual for
   the feature section.
+- `docs/assets/pureautolike-popup-real-render.png`: English real popup render
+  used inside the marketing compositions.
 - `store-assets/pureautolike-store-screenshot-1280x800.png`: Chrome Web Store
   style screenshot/mockup.
 - `store-assets/pureautolike-store-icon-128.png`: store icon.
 
-Generated image prompts are intentionally text-free because AI-generated text is
-often unreliable. Product claims, limitations, and CTAs should remain as real
-README text.
+Current README visuals are rendered from deterministic HTML/CSS sources under
+`docs/assets-src/`, with the real popup render embedded as the central product
+surface. Product claims, limitations, and CTAs should remain as real README text.
 
 ## Publishing Checklist
 
