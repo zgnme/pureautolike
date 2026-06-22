@@ -9,7 +9,9 @@
   };
   const CHANNEL = (document.currentScript && document.currentScript.dataset && document.currentScript.dataset.palChannel) || '';
   const NET_BODY_MAX = 128 * 1024;
+  const PHOTO_META_CACHE_LIMIT = 120;
   let netSeq = 0;
+  const photoMetaCache = new Map();
 
   function decodeBearerUserId(bearer) {
     try {
@@ -136,6 +138,54 @@
       if (!response.ok) return '';
       const data = await response.json();
       return (data && data.chat && (data.chat.channelName || data.chat.channel)) || data.channelName || data.channel || '';
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function usefulPhotoMeta(meta) {
+    return !!(meta && (meta.photoId || meta.peerUserId || meta.messageId || meta.chatId || meta.channelName));
+  }
+
+  function mergePhotoMeta(primary, fallback) {
+    const live = primary || {};
+    const cached = fallback || {};
+    if (live.messageId && cached.messageId && String(live.messageId) !== String(cached.messageId)) return live;
+    if (live.photoId && cached.photoId && String(live.photoId) !== String(cached.photoId)) return live;
+    if (live.peerUserId && cached.peerUserId && String(live.peerUserId) !== String(cached.peerUserId)) return live;
+    return {
+      photoId: live.photoId || cached.photoId || '',
+      peerUserId: live.peerUserId || cached.peerUserId || '',
+      selfDestructed: !!(live.selfDestructed || cached.selfDestructed),
+      channelName: live.channelName || cached.channelName || '',
+      chatId: live.chatId || cached.chatId || '',
+      messageId: live.messageId || cached.messageId || ''
+    };
+  }
+
+  function rememberPhotoMeta(key, meta) {
+    const cacheKey = String(key || '');
+    if (!cacheKey || !usefulPhotoMeta(meta)) return;
+    if (photoMetaCache.has(cacheKey)) photoMetaCache.delete(cacheKey);
+    photoMetaCache.set(cacheKey, {meta: mergePhotoMeta(meta, {}), createdAt: Date.now()});
+    while (photoMetaCache.size > PHOTO_META_CACHE_LIMIT) {
+      photoMetaCache.delete(photoMetaCache.keys().next().value);
+    }
+  }
+
+  function cachedPhotoMeta(key) {
+    const cacheKey = String(key || '');
+    const cached = photoMetaCache.get(cacheKey);
+    if (!cached) return {};
+    photoMetaCache.delete(cacheKey);
+    photoMetaCache.set(cacheKey, cached);
+    return cached.meta || {};
+  }
+
+  function photoKeyForRoot(rootEl, explicitKey = '') {
+    if (explicitKey) return String(explicitKey);
+    try {
+      return rootEl && rootEl.getAttribute ? String(rootEl.getAttribute('data-pal-photo-key') || '') : '';
     } catch (_) {
       return '';
     }
@@ -449,6 +499,14 @@
     return out;
   }
 
+  function resolvePhotoMetaForRoot(rootEl, explicitKey = '') {
+    const key = photoKeyForRoot(rootEl, explicitKey);
+    const live = rootEl ? extractPhotoMeta(rootEl) : {};
+    const merged = mergePhotoMeta(live, cachedPhotoMeta(key));
+    if (key && usefulPhotoMeta(merged)) rememberPhotoMeta(key, merged);
+    return merged;
+  }
+
   window.addEventListener('message', event => {
     if (event.source !== window) return;
     const data = event.data || {};
@@ -460,9 +518,15 @@
       return;
     }
 
+    if (data.type === 'cache-photo-meta') {
+      const root = document.querySelector(`[data-pal-photo-key="${CSS.escape(data.photoKey || '')}"]`);
+      if (root) resolvePhotoMetaForRoot(root, data.photoKey || '');
+      return;
+    }
+
     if (data.type === 'fetch-photo') {
       const root = document.querySelector(`[data-pal-photo-request="${CSS.escape(data.requestId)}"]`);
-      const meta = root ? extractPhotoMeta(root) : {};
+      const meta = resolvePhotoMetaForRoot(root, data.photoKey || '');
       fetchPhotoBlob(meta)
         .then(result => {
           window.postMessage({
@@ -487,6 +551,16 @@
         });
     }
   });
+
+  if (globalThis.__PAL_TEST_HOOKS__ && globalThis.__PAL_TEST_HOOKS__.__enabled === true) {
+    globalThis.__PAL_TEST_HOOKS__.photoOpener = {
+      extractPhotoMeta,
+      mergePhotoMeta,
+      rememberPhotoMeta,
+      cachedPhotoMeta,
+      resolvePhotoMetaForRoot
+    };
+  }
 
   publishToken();
 })();

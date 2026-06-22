@@ -38,6 +38,7 @@
   const SESSION_STATS_KEY = 'palSessionStats';
   const STATS_FLUSH_MS = 700;
   const PHOTO_CACHE_LIMIT = 40;
+  const PHOTO_META_REFRESH_MS = 5000;
   const MAX_TIMER_MS = 2147483647;
   const CLICK_CONFIRM_MS = 520;
   const CLICK_RETRY_CONFIRM_MS = 720;
@@ -2402,16 +2403,38 @@
     runtime.photoCache.clear();
   }
 
+  function ensurePhotoKey(root) {
+    if (!root || !root.isConnected) return '';
+    let key = root.getAttribute('data-pal-photo-key') || '';
+    if (!key) {
+      key = `pal_photo_${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}`;
+      root.setAttribute('data-pal-photo-key', key);
+    }
+    return key;
+  }
+
+  function requestPhotoMetaCache(root, force = false) {
+    const key = ensurePhotoKey(root);
+    if (!key) return '';
+    const now = Date.now();
+    const last = Number(root.getAttribute('data-pal-photo-cache-at') || 0);
+    if (!force && last && now - last < PHOTO_META_REFRESH_MS) return key;
+    root.setAttribute('data-pal-photo-cache-at', String(now));
+    window.postMessage({source: 'pal-content', channel: BRIDGE_CHANNEL, type: 'cache-photo-meta', photoKey: key}, '*');
+    return key;
+  }
+
   function fetchPhotoBlob(root) {
     return new Promise(resolve => {
       const requestId = Math.random().toString(36).slice(2) + Date.now().toString(36);
+      const photoKey = root && root.isConnected ? requestPhotoMetaCache(root, true) : '';
       const finish = value => {
         if (root && root.isConnected) root.removeAttribute('data-pal-photo-request');
         resolve(value);
       };
       runtime.pendingPhoto.set(requestId, finish);
       if (root && root.isConnected) root.setAttribute('data-pal-photo-request', requestId);
-      window.postMessage({source: 'pal-content', channel: BRIDGE_CHANNEL, type: 'fetch-photo', requestId}, '*');
+      window.postMessage({source: 'pal-content', channel: BRIDGE_CHANNEL, type: 'fetch-photo', requestId, photoKey}, '*');
       setTimeout(() => {
         if (runtime.pendingPhoto.has(requestId)) {
           runtime.pendingPhoto.delete(requestId);
@@ -2465,8 +2488,13 @@
     while ((node = walker.nextNode())) {
       if (!/ТОЛЬКО В ПРИЛОЖЕНИИ/i.test(node.nodeValue || '')) continue;
       const root = findPhotoRoot(node.parentElement);
-      if (!root || root.hasAttribute('data-pal-photo-marked')) continue;
+      if (!root) continue;
+      if (root.hasAttribute('data-pal-photo-marked')) {
+        requestPhotoMetaCache(root);
+        continue;
+      }
       root.setAttribute('data-pal-photo-marked', '1');
+      requestPhotoMetaCache(root, true);
       if (getComputedStyle(root).position === 'static') root.style.position = 'relative';
       const btn = document.createElement('button');
       btn.className = 'pal-open-photo';

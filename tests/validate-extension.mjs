@@ -189,6 +189,8 @@ assert(content.includes('NOTIFICATION_MEMORY_LIMIT'), 'content must bound notifi
 assert(!content.includes('TELEGRAM_SENT_MEMORY_LIMIT'), 'content must not own Telegram send dedupe memory');
 assert(content.includes("type: 'fetch-photo'"), 'content must request photo blobs through the page bridge');
 assert(content.includes("'photo-result'"), 'content must receive photo blobs from the page bridge');
+assert(content.includes('data-pal-photo-key'), 'content must assign stable keys to decorated photo placeholders');
+assert(content.includes("type: 'cache-photo-meta'"), 'content must warm page-side photo metadata cache before stale clicks');
 assert(content.includes('runtime.hasToken'), 'content must track token readiness without storing Pure bearer');
 assert(!content.includes('runtime.bearer'), 'content must not store the Pure bearer token');
 assert(!content.includes("'Authorization': runtime"), 'content must not issue bearer-authenticated Pure API requests');
@@ -223,8 +225,11 @@ assert(bridge.includes('hasToken: !!state.bearer'), 'bridge must publish token r
 assert(!bridge.includes('bearer: state.bearer'), 'bridge must not post the Pure bearer token to content');
 assert(bridge.includes('fetchPhotoBlob'), 'bridge must fetch protected Pure photos inside page context');
 assert(bridge.includes("type: 'photo-result'"), 'bridge must return photo fetch results over the scoped channel');
+assert(bridge.includes('PHOTO_META_CACHE_LIMIT'), 'bridge must keep a bounded photo metadata cache');
+assert(bridge.includes('resolvePhotoMetaForRoot'), 'bridge must fall back to cached photo metadata for stale roots');
+assert(bridge.includes("data.type === 'cache-photo-meta'"), 'bridge must accept page-side photo metadata cache warmup');
 const fetchPhotoHandler = bridge.slice(bridge.indexOf("if (data.type === 'fetch-photo')"), bridge.indexOf('});', bridge.indexOf("if (data.type === 'fetch-photo')")));
-assert(fetchPhotoHandler.includes('extractPhotoMeta(root)'), 'bridge fetch-photo handler must derive metadata from the marked DOM root');
+assert(fetchPhotoHandler.includes('resolvePhotoMetaForRoot(root'), 'bridge fetch-photo handler must derive or restore metadata from the marked DOM root');
 assert(!fetchPhotoHandler.includes('data.meta'), 'bridge fetch-photo handler must not trust metadata supplied by content');
 
 const popup = await read('popup.html');
