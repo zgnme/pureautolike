@@ -6,6 +6,9 @@ to act on.
 - Bug reports: https://github.com/zgnoff/pureautolike/issues/new?template=bug_report.yml
 - Feature requests: https://github.com/zgnoff/pureautolike/issues/new?template=feature_request.yml
 
+Maintainer notifications can be mirrored to Telegram through GitHub Actions.
+Setup notes: [docs/telegram-feedback-notifications.md](docs/telegram-feedback-notifications.md)
+
 Useful bug report details:
 
 - browser and version;
