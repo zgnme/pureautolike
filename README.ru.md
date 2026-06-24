@@ -5,6 +5,8 @@
 </p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Chrome Web Store</strong></a>
+  ·
   <a href="README.md"><strong>Главная</strong></a>
   ·
   <a href="INSTALL.md"><strong>Установка</strong></a>
@@ -126,11 +128,12 @@ host permissions у самого расширения.
 
 ## Установка
 
-Публичная установка для пользователей планируется через beta-листинг Chrome Web
-Store. GitHub используется для исходников, прозрачности, обратной связи и
-maintainer release-артефактов. Даже packaged-сборки обращаются к PureAutoLike
-license endpoint, поэтому после выключения beta backend сможет enforce paid
-access.
+Установить опубликованную Chrome/Chromium-сборку можно из Chrome Web Store:
+[PureAutoLike](https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm).
+
+GitHub используется для исходников, прозрачности, обратной связи и maintainer
+release-артефактов. Даже packaged-сборки обращаются к PureAutoLike license
+endpoint, поэтому после выключения beta backend сможет enforce paid access.
 
 Заметки для maintainer-сборок: [INSTALL.md](INSTALL.md)
 

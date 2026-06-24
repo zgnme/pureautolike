@@ -4,9 +4,14 @@ This repository contains the lightweight beta browser extension version.
 
 ## Public Distribution
 
-Public user installs should go through the Chrome Web Store beta listing once it
-is approved. GitHub is used for source code, feedback, transparency, and
-maintainer release artifacts, not as the primary user install funnel.
+Public user installs should go through the published Chrome Web Store listing:
+[PureAutoLike](https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm).
+
+Chrome Web Store extension id:
+`abamkpcdpihjpaomdpaklhifpfbobgmm`.
+
+GitHub is used for source code, feedback, transparency, and maintainer release
+artifacts, not as the primary user install funnel.
 
 Packaged builds still contact the PureAutoLike license endpoint before starting
 the runner. While beta is enabled, the backend returns beta access. When beta is

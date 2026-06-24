@@ -1,6 +1,6 @@
 # SEO And Indexing Plan
 
-Last checked: 2026-06-21.
+Last checked: 2026-06-24.
 
 PureAutoLike is now a public GitHub repository. GitHub can be indexed, but it is
 still a weak landing page compared with a dedicated website because repository
@@ -39,8 +39,9 @@ Recommended topics:
 - `automation`
 - `telegram-notifications`
 
-Use the Chrome Web Store URL as the repository homepage after the listing is
-approved. Until then, use the latest GitHub release or the README anchor.
+Use the published Chrome Web Store URL as the repository homepage:
+
+`https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm`
 
 ## README Landing Structure
 
@@ -95,6 +96,8 @@ Current GitHub assets:
 - `store-assets/pureautolike-store-screenshot-1280x800.png`: Chrome Web Store
   style screenshot/mockup.
 - `store-assets/pureautolike-store-icon-128.png`: store icon.
+- Published Chrome Web Store listing:
+  `https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm`.
 
 Current README visuals are rendered from deterministic HTML/CSS sources under
 `docs/assets-src/`, with the real popup render embedded as the central product

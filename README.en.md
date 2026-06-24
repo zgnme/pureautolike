@@ -5,6 +5,8 @@
 </p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Chrome Web Store</strong></a>
+  ·
   <a href="README.md"><strong>Main README</strong></a>
   ·
   <a href="INSTALL.md"><strong>Install</strong></a>
@@ -126,7 +128,9 @@ Read the code cleanliness note: [SECURITY.md](SECURITY.md)
 
 ## Installation
 
-Public user distribution is planned through the Chrome Web Store beta listing.
+Install the published Chrome/Chromium build from the Chrome Web Store:
+[PureAutoLike](https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm).
+
 GitHub is used for source, feedback, transparency, and maintainer release
 artifacts. Packaged builds still contact the PureAutoLike license endpoint, so
 future paid access can be enforced by the backend after beta mode is disabled.

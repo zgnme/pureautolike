@@ -7,7 +7,7 @@ preview_urls = false
 [vars]
 BETA_ENABLED = "true"
 CHECKOUT_URL = ""
-ALLOWED_EXTENSION_IDS = ""
+ALLOWED_EXTENSION_IDS = "abamkpcdpihjpaomdpaklhifpfbobgmm"
 WEBHOOK_SECRET = ""
 
 [[d1_databases]]

@@ -118,7 +118,8 @@ npx --yes playwright screenshot \
 
 ## Follow-Up Visuals Worth Adding Later
 
-- A real Chrome Web Store screenshot after the listing is approved.
+- A real Chrome Web Store screenshot after the listing has enough public review
+  context to be useful in the README.
 - A short animated GIF or MP4 showing open Pure tab -> popup toggle -> Telegram
   alert. This should be recorded from the real extension, not generated.
 - A localized Russian marketing image set, if the GitHub README later becomes

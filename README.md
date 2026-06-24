@@ -9,6 +9,8 @@
 </p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Chrome Web Store</strong></a>
+  ·
   <a href="README.en.md"><strong>English</strong></a>
   ·
   <a href="README.ru.md"><strong>Русский</strong></a>
@@ -24,6 +26,7 @@
 
 <p align="center">
   <img alt="Beta" src="https://img.shields.io/badge/status-free%20beta-ff0a68?style=flat-square">
+  <img alt="Chrome Web Store" src="https://img.shields.io/badge/install-Chrome%20Web%20Store-111111?style=flat-square">
   <img alt="WebExtension" src="https://img.shields.io/badge/platform-WebExtension-111111?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/storage-local%20settings-f5f5f5?style=flat-square&labelColor=111111">
   <img alt="No analytics" src="https://img.shields.io/badge/analytics-none-32d74b?style=flat-square&labelColor=111111">
@@ -113,9 +116,11 @@ Use it responsibly and follow the rules of the services you use.
 
 ## Install
 
-Public user distribution is planned through the Chrome Web Store beta listing.
+Install the published Chrome/Chromium build from the Chrome Web Store:
+[PureAutoLike](https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm).
+
 GitHub is used for source transparency, feedback, and maintainer release
-artifacts.
+artifacts. Store installation is the primary public install path.
 
 Maintainer notes: [INSTALL.md](INSTALL.md)
 

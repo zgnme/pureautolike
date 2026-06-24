@@ -9,7 +9,7 @@ preview_urls = false
 # Wrangler secrets, or a local untracked config before deploying paid access.
 BETA_ENABLED = "true"
 CHECKOUT_URL = ""
-ALLOWED_EXTENSION_IDS = ""
+ALLOWED_EXTENSION_IDS = "abamkpcdpihjpaomdpaklhifpfbobgmm"
 WEBHOOK_SECRET = ""
 
 [[d1_databases]]

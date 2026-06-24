@@ -8,6 +8,8 @@ The extension is prepared for a future paid subscription, but the current releas
 - Background service worker owns license checks.
 - Content scripts never receive billing secrets or payment state beyond the allowed/blocked runner result.
 - `LICENSE_API_BASE` points to the deployed Cloudflare Worker license endpoint.
+- Published Chrome Web Store extension id:
+  `abamkpcdpihjpaomdpaklhifpfbobgmm`.
 - The extension does not grant local beta access when the license endpoint is missing or unavailable; free beta access is returned by the backend while `BETA_ENABLED=true`.
 
 ## Future Paid Switch
@@ -19,7 +21,7 @@ When paid access is enabled:
 3. Set Worker vars:
    - `BETA_ENABLED=true` while the extension is free.
    - `BETA_ENABLED=false` when paid access should be enforced.
-   - `ALLOWED_EXTENSION_IDS=<Chrome Web Store extension id>`.
+   - `ALLOWED_EXTENSION_IDS=abamkpcdpihjpaomdpaklhifpfbobgmm`.
    - `CHECKOUT_URL=<payment checkout url>`.
    - `WEBHOOK_SECRET=<random shared secret for billing webhooks>`.
 4. Verify the exact backend origin is present in Chrome manifest `host_permissions`.
