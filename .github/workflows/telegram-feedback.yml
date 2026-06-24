@@ -44,6 +44,7 @@ jobs:
           node <<'NODE'
           const fs = require('node:fs');
 
+          (async () => {
           const token = process.env.TELEGRAM_BOT_TOKEN;
           const chatId = process.env.TELEGRAM_CHAT_ID;
           const threadId = process.env.TELEGRAM_THREAD_ID;
@@ -163,4 +164,5 @@ jobs:
           if (!response.ok) {
             throw new Error(`Telegram sendMessage failed: ${response.status} ${responseText}`);
           }
+          })();
           NODE
