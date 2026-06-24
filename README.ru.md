@@ -9,7 +9,7 @@
   ·
   <a href="README.md"><strong>Главная</strong></a>
   ·
-  <a href="INSTALL.md"><strong>Установка</strong></a>
+  <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Установка</strong></a>
   ·
   <a href="PRIVACY.md"><strong>Приватность</strong></a>
   ·
@@ -125,6 +125,12 @@ host permissions у самого расширения.
 - Firefox: поддерживается отдельной Firefox-сборкой, клики выполняются через DOM.
 - Safari: поддерживается как Safari Web Extension source, нужна упаковка через
   Safari/Xcode/App Store flow.
+
+Chrome Web Store сейчас единственный публичный one-click install канал.
+Firefox и Safari поддерживаются build-системой, но публичные релизы стоит
+выпускать только после signed Mozilla Add-ons / Safari App Store дистрибуции
+или общего subscription identity, описанного в
+[docs/cross-browser-subscriptions.md](docs/cross-browser-subscriptions.md).
 
 ## Установка
 

@@ -18,6 +18,11 @@ the runner. While beta is enabled, the backend returns beta access. When beta is
 disabled later, updated builds can be blocked unless the backend returns an
 active subscription.
 
+Firefox and Safari builds are generated for maintainer/testing use, but they are
+not public one-click install channels yet. Public Firefox/Safari distribution
+requires signed store packages and the cross-browser subscription model in
+[docs/cross-browser-subscriptions.md](docs/cross-browser-subscriptions.md).
+
 ## Maintainer Build
 
 ```bash

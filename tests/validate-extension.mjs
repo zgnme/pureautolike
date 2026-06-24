@@ -112,6 +112,7 @@ assert(background.includes('pal-runner-timers-set'), 'background must schedule r
 assert(background.includes('pal-timer-fired'), 'background must notify content when a timer fires');
 assert(background.includes('LICENSE_STATE_KEY'), 'background must persist license status');
 assert(background.includes('INSTALLATION_ID_KEY'), 'background must persist anonymous installation id');
+assert(background.includes('LICENSE_CHANNEL'), 'background must send a release channel to the license backend');
 assert(background.includes('LICENSE_BETA_FALLBACK = false'), 'background must not allow a local beta fallback when the license backend fails');
 assert(background.includes('license_endpoint_missing'), 'background must lock access if the license endpoint is missing');
 assert(background.includes('pal-license-check'), 'background must expose license checks to the popup');
@@ -317,6 +318,13 @@ assert(build.status === 0, `build failed: ${build.stderr || build.stdout}`);
 for (const target of Object.keys(targets)) {
   const builtManifest = JSON.parse(await read(`dist/${target}/manifest.json`));
   validateCommonManifest(builtManifest, `dist/${target}`);
+  const builtBackground = await read(`dist/${target}/src/background.js`);
+  const expectedChannel = {
+    chromium: 'chrome-web-store',
+    firefox: 'firefox-amo',
+    safari: 'safari-app-store'
+  }[target];
+  assert(builtBackground.includes(`const LICENSE_CHANNEL = '${expectedChannel}';`), `${target}: license channel must match release target`);
   for (const icon of popupIconAssets) {
     await access(resolve(root, `dist/${target}/src/icons/${icon}`));
   }

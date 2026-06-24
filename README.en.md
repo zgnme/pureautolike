@@ -9,7 +9,7 @@
   ·
   <a href="README.md"><strong>Main README</strong></a>
   ·
-  <a href="INSTALL.md"><strong>Install</strong></a>
+  <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Install</strong></a>
   ·
   <a href="PRIVACY.md"><strong>Privacy</strong></a>
   ·
@@ -125,6 +125,12 @@ Read the code cleanliness note: [SECURITY.md](SECURITY.md)
 - Firefox: supported through the Firefox build, with DOM-click fallback.
 - Safari: supported as Safari Web Extension source, with Safari packaging
   required.
+
+Chrome Web Store is the only public one-click install channel right now.
+Firefox and Safari are supported by the build system, but public releases should
+wait for signed Mozilla Add-ons / Safari App Store distribution or the shared
+subscription identity described in
+[docs/cross-browser-subscriptions.md](docs/cross-browser-subscriptions.md).
 
 ## Installation
 

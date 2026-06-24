@@ -7,6 +7,7 @@ const INSTALLATION_ID_KEY = 'palInstallationId';
 const RUNNER_STALE_MS = 5 * 60 * 1000;
 const LICENSE_CACHE_MS = 24 * 60 * 60 * 1000;
 const LICENSE_API_BASE = 'https://pureautolike-license.ziganshinoff.workers.dev';
+const LICENSE_CHANNEL = 'chrome-web-store';
 const LICENSE_BETA_FALLBACK = false;
 const TELEGRAM_SENT_MEMORY_LIMIT = 1000;
 const TELEGRAM_CONFIG_BACKUP_KEY = 'palTelegramConfigBackup';
@@ -357,7 +358,7 @@ async function remoteLicenseCheck(installId) {
       installation_id: installId,
       extension_id: ext.runtime.id || '',
       version: manifestVersion(),
-      channel: 'chrome-web-store'
+      channel: LICENSE_CHANNEL
     })
   });
   let payload = null;

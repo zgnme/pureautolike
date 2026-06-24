@@ -15,7 +15,7 @@
   ·
   <a href="README.ru.md"><strong>Русский</strong></a>
   ·
-  <a href="INSTALL.md"><strong>Install</strong></a>
+  <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Install</strong></a>
   ·
   <a href="PRIVACY.md"><strong>Privacy</strong></a>
   ·
@@ -26,7 +26,7 @@
 
 <p align="center">
   <img alt="Beta" src="https://img.shields.io/badge/status-free%20beta-ff0a68?style=flat-square">
-  <img alt="Chrome Web Store" src="https://img.shields.io/badge/install-Chrome%20Web%20Store-111111?style=flat-square">
+  <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><img alt="Chrome Web Store" src="https://img.shields.io/badge/install-Chrome%20Web%20Store-111111?style=flat-square"></a>
   <img alt="WebExtension" src="https://img.shields.io/badge/platform-WebExtension-111111?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/storage-local%20settings-f5f5f5?style=flat-square&labelColor=111111">
   <img alt="No analytics" src="https://img.shields.io/badge/analytics-none-32d74b?style=flat-square&labelColor=111111">
@@ -79,6 +79,13 @@ flowchart LR
 | Chrome / Chromium / Edge / Brave / Opera / Arc / Yandex Browser | Recommended build. |
 | Firefox | Supported with DOM-click fallback. |
 | Safari | Safari Web Extension source is included; Safari packaging is separate. |
+
+Chrome Web Store is the only public install channel right now. Firefox and
+Safari support are present in the source/build system, but they should become
+public only through signed Mozilla Add-ons / Safari App Store releases or a
+backend subscription flow that can identify the same paid user across browsers.
+Cross-browser subscription requirements are tracked in
+[docs/cross-browser-subscriptions.md](docs/cross-browser-subscriptions.md).
 
 The extension behaves inside the browser profile where it is installed. If Pure
 is already used through a managed Chromium profile, PureAutoLike inherits that

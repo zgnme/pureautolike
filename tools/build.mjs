@@ -7,6 +7,11 @@ const dist = resolve(root, 'dist');
 const targets = ['chromium', 'firefox', 'safari'];
 const requested = process.argv[2] || 'all';
 const selected = requested === 'all' ? targets : [requested];
+const licenseChannels = {
+  chromium: 'chrome-web-store',
+  firefox: 'firefox-amo',
+  safari: 'safari-app-store'
+};
 
 const sharedPaths = [
   'popup.html',
@@ -40,10 +45,25 @@ for (const target of selected) {
   for (const path of sharedPaths) {
     await cp(resolve(root, path), resolve(out, path), {recursive: true});
   }
+  await writeTargetBackground(out, target);
   const manifest = await readFile(resolve(root, 'manifests', `${target}.json`), 'utf8');
   await writeFile(resolve(out, 'manifest.json'), manifest);
   await writeFile(resolve(out, 'TARGET.md'), targetReadme(target));
   console.log(`built ${target}: ${out}`);
+}
+
+async function writeTargetBackground(out, target) {
+  const backgroundPath = resolve(out, 'src/background.js');
+  const source = await readFile(backgroundPath, 'utf8');
+  const channel = licenseChannels[target];
+  if (!channel) throw new Error(`Missing license channel for target: ${target}`);
+  await writeFile(
+    backgroundPath,
+    source.replace(
+      "const LICENSE_CHANNEL = 'chrome-web-store';",
+      `const LICENSE_CHANNEL = '${channel}';`
+    )
+  );
 }
 
 function targetReadme(target) {
