@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PureAutoLike - автолайкер для Pure Web</title>
+  <meta name="description" content="PureAutoLike is a beta browser extension for Pure Web: visible-feed auto-like, accessible photo opener, Telegram alerts, timers, and local Markdown export.">
+  <meta property="og:title" content="PureAutoLike">
+  <meta property="og:description" content="A focused beta extension for Pure Web: visible-feed auto-like, accessible photo opener, Telegram alerts, timers, and local Markdown export.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/posters/hero-ru.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="top">
+    <section class="hero" aria-label="PureAutoLike hero">
+      <video
+        id="heroVideo"
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="assets/posters/hero-ru.jpg"
+        data-hero-video
+      >
+        <source src="assets/videos/hero-ru.mp4" type="video/mp4">
+      </video>
+      <div class="hero-vignette" aria-hidden="true"></div>
+      <h1 class="visually-hidden" data-i18n="heroTitle">PureAutoLike</h1>
+      <header class="site-dock" aria-label="Site navigation">
+        <a class="brand" href="#top" aria-label="PureAutoLike home">
+          <span class="brand-mark">P</span>
+          <span>PureAutoLike</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#features" data-i18n="navFeatures" data-short="F">Функции</a>
+          <a href="#trust" data-i18n="navTrust" data-short="B">Границы</a>
+          <a href="#faq" data-i18n="navFaq" data-short="?">FAQ</a>
+        </nav>
+        <div class="top-actions">
+          <div class="lang-switch" aria-label="Language">
+            <button type="button" class="lang-button is-active" data-lang="ru">RU</button>
+            <button type="button" class="lang-button" data-lang="en">EN</button>
+          </div>
+          <a class="store-link" href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm" data-i18n="installShort">Install</a>
+        </div>
+      </header>
+    </section>
+
+    <section id="features" class="feature-band reveal">
+      <div class="section-head reveal">
+        <p class="section-label" data-i18n="featuresLabel">Функции</p>
+        <h2 data-i18n="featuresTitle">Четыре функции. Без лишней панели.</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-item reveal">
+          <span class="feature-icon icon-like" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path class="icon-ring" d="M24 43c10.5 0 19-8.5 19-19S34.5 5 24 5 5 13.5 5 24s8.5 19 19 19Z"/>
+              <path class="icon-main" d="M24 35.2 14.8 26.6c-4.7-4.4-2.6-12 3.8-12 2.6 0 4.2 1.3 5.4 2.9 1.2-1.6 2.8-2.9 5.4-2.9 6.4 0 8.5 7.6 3.8 12L24 35.2Z"/>
+            </svg>
+          </span>
+          <h3 data-i18n="featureLikeTitle">Автолайк</h3>
+          <p data-i18n="featureLikeCopy">Видимые карточки</p>
+        </article>
+        <article class="feature-item reveal">
+          <span class="feature-icon icon-eye" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path class="icon-main" d="M6 24s6.5-11.5 18-11.5S42 24 42 24 35.5 35.5 24 35.5 6 24 6 24Z"/>
+              <circle class="icon-pupil" cx="24" cy="24" r="5.5"/>
+              <path class="icon-scan" d="M10 20h28"/>
+            </svg>
+          </span>
+          <h3 data-i18n="featurePhotoTitle">Скрытые фото</h3>
+          <p data-i18n="featurePhotoCopy">Доступ текущей сессии</p>
+        </article>
+        <article class="feature-item reveal">
+          <span class="feature-icon icon-plane" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path class="icon-trail" d="M7 31c7-1.4 12-3.4 16-6"/>
+              <path class="icon-main" d="M42 7 7.8 21.1c-1.7.7-1.6 3.1.2 3.7l11.7 3.5 3.6 11.7c.6 1.8 3 1.9 3.7.2L42 7Z"/>
+              <path class="icon-cut" d="M20 28 42 7"/>
+            </svg>
+          </span>
+          <h3 data-i18n="featureTelegramTitle">Telegram</h3>
+          <p data-i18n="featureTelegramCopy">Матчи, лайки, сообщения</p>
+        </article>
+        <article class="feature-item reveal">
+          <span class="feature-icon icon-export" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path class="icon-main" d="M15 7h14l7 7v27H15V7Z"/>
+              <path class="icon-fold" d="M29 7v8h7"/>
+              <path class="icon-lines" d="M20 24h16M20 30h13M20 36h9"/>
+            </svg>
+          </span>
+          <h3 data-i18n="featureExportTitle">Markdown</h3>
+          <p data-i18n="featureExportCopy">Локальный экспорт</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="scenario-band reveal" aria-label="PureAutoLike scenarios">
+      <div class="scenario-panel">
+        <div class="scenario-copy">
+          <p class="section-label" data-i18n="scenarioLabel">Сценарии</p>
+          <h2 data-i18n="scenarioTitle">Что реально делает расширение.</h2>
+        </div>
+        <div class="scenario-workbench">
+          <div class="scenario-tabs" role="tablist" aria-label="PureAutoLike feature scenarios">
+            <button type="button" class="scenario-tab is-active" data-scenario="autolike" data-i18n="scenarioTabAutolike">Автолайк</button>
+            <button type="button" class="scenario-tab" data-scenario="photos" data-i18n="scenarioTabPhotos">Фото</button>
+            <button type="button" class="scenario-tab" data-scenario="telegram" data-i18n="scenarioTabTelegram">Telegram</button>
+            <button type="button" class="scenario-tab" data-scenario="timers" data-i18n="scenarioTabTimers">Таймеры</button>
+            <button type="button" class="scenario-tab" data-scenario="export" data-i18n="scenarioTabExport">Markdown</button>
+          </div>
+          <article class="scenario-card" aria-live="polite">
+            <div class="scenario-card-head">
+              <p class="scenario-eyebrow" data-scenario-field="eyebrow">Открытая вкладка Pure</p>
+              <h3 data-scenario-field="title">Автолайк</h3>
+            </div>
+            <ul class="scenario-list">
+              <li><span class="scenario-dot"></span><span data-scenario-field="pointOne">Кликает видимые лайки.</span></li>
+              <li><span class="scenario-dot"></span><span data-scenario-field="pointTwo">Не повторяет уже обработанные карточки.</span></li>
+              <li><span class="scenario-dot"></span><span data-scenario-field="pointThree">Работает в открытой вкладке Pure.</span></li>
+            </ul>
+            <p class="scenario-note" data-scenario-field="note">Не меняет выдачу и геопозицию.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="trust" class="trust-band reveal">
+      <div class="reveal">
+        <p class="section-label" data-i18n="trustLabel">Границы</p>
+        <h2 data-i18n="trustTitle">Без скрытых обещаний.</h2>
+      </div>
+      <div class="trust-list reveal">
+        <p><span class="trust-mark">01</span><span data-i18n="trustOne">Настройки и экспорт хранятся локально.</span></p>
+        <p><span class="trust-mark">02</span><span data-i18n="trustTwo">Telegram включается только вручную.</span></p>
+        <p><span class="trust-mark">03</span><span data-i18n="trustThree">Матчи, геопозицию и модерацию PureAutoLike не меняет.</span></p>
+      </div>
+    </section>
+
+    <section id="faq" class="faq-band reveal">
+      <div class="section-head reveal">
+        <p class="section-label">FAQ</p>
+        <h2 data-i18n="faqTitle">Коротко перед установкой.</h2>
+      </div>
+      <div class="faq-list">
+        <details open>
+          <summary data-i18n="faqChromeQ">Где устанавливать?</summary>
+          <p data-i18n="faqChromeA">Основной путь - Chrome Web Store. GitHub остается для кода, политики приватности, issue и обратной связи.</p>
+        </details>
+        <details>
+          <summary data-i18n="faqLocalQ">Это работает в фоне?</summary>
+          <p data-i18n="faqLocalA">Автолайк работает только в открытой вкладке Pure Web. Фоновая часть держит состояние, таймеры, Telegram и beta-проверку.</p>
+        </details>
+        <details>
+          <summary data-i18n="faqGuaranteeQ">Это гарантирует матчи?</summary>
+          <p data-i18n="faqGuaranteeA">Нет. Оно убирает ручную рутину, но не управляет ранжированием, ответами или модерацией Pure.</p>
+        </details>
+        <details>
+          <summary data-i18n="faqBetaQ">Что с beta и подпиской?</summary>
+          <p data-i18n="faqBetaA">Сейчас beta бесплатная. Проверка лицензии уже есть, чтобы позже включить платный доступ через тот же канал установки.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="final-cta reveal">
+      <h2 data-i18n="finalTitle">Проверь beta на своей вкладке Pure.</h2>
+      <a class="primary-cta" href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm" data-i18n="finalCta">Установить PureAutoLike</a>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
