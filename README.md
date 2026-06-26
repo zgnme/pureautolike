@@ -11,6 +11,8 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Chrome Web Store</strong></a>
   ·
+  <a href="https://zgnoff.github.io/pureautolike/"><strong>Website</strong></a>
+  ·
   <a href="README.en.md"><strong>English</strong></a>
   ·
   <a href="README.ru.md"><strong>Русский</strong></a>

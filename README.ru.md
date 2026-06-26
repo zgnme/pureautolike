@@ -7,6 +7,8 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Chrome Web Store</strong></a>
   ·
+  <a href="https://zgnoff.github.io/pureautolike/"><strong>Сайт</strong></a>
+  ·
   <a href="README.md"><strong>Главная</strong></a>
   ·
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Установка</strong></a>

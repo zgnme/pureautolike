@@ -1,4 +1,5 @@
 const STORE_URL = 'https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm';
+const SITE_URL = 'https://zgnoff.github.io/pureautolike/';
 const LANGUAGE_STORAGE_KEY = 'pureautolike.site.language';
 document.documentElement.classList.add('js');
 
@@ -8,6 +9,7 @@ const locales = {
     description: 'PureAutoLike - beta-расширение для Pure Web: автолайк видимой ленты, открытие доступных фото, Telegram-уведомления, таймеры и локальный Markdown-экспорт.',
     video: 'assets/videos/hero-ru.mp4',
     poster: 'assets/posters/hero-ru.jpg',
+    shareImage: `${SITE_URL}assets/posters/hero-ru.jpg`,
     navFeatures: 'Функции',
     navTrust: 'Границы',
     navFaq: 'FAQ',
@@ -97,6 +99,7 @@ const locales = {
     description: 'PureAutoLike is a beta browser extension for Pure Web: visible-feed auto-like, accessible photo opener, Telegram alerts, timers, and local Markdown export.',
     video: 'assets/videos/hero-en.mp4',
     poster: 'assets/posters/hero-en.jpg',
+    shareImage: `${SITE_URL}assets/posters/hero-en.jpg`,
     navFeatures: 'Features',
     navTrust: 'Boundaries',
     navFaq: 'FAQ',
@@ -205,9 +208,17 @@ function setLanguage(lang) {
   const description = document.querySelector('meta[name="description"]');
   const ogDescription = document.querySelector('meta[property="og:description"]');
   const ogImage = document.querySelector('meta[property="og:image"]');
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+  const twitterImage = document.querySelector('meta[name="twitter:image"]');
   if (description) description.setAttribute('content', data.description);
   if (ogDescription) ogDescription.setAttribute('content', data.description);
-  if (ogImage) ogImage.setAttribute('content', data.poster);
+  if (twitterDescription) twitterDescription.setAttribute('content', data.description);
+  if (ogImage) ogImage.setAttribute('content', data.shareImage);
+  if (twitterImage) twitterImage.setAttribute('content', data.shareImage);
+  if (ogUrl) ogUrl.setAttribute('content', SITE_URL);
+  if (canonical) canonical.setAttribute('href', SITE_URL);
 
   for (const node of i18nNodes) {
     const value = data[node.dataset.i18n];

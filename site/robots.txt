@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zgnoff.github.io/pureautolike/sitemap.xml
