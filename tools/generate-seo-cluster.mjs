@@ -12,7 +12,26 @@ const searchHooks = {
     label: 'Бесплатно · актуально 2026',
     h1Prefix: 'Бесплатная beta 2026:',
     trustLine: 'Бесплатная beta, актуально для 2026: установка через Chrome Web Store, без сторонней аналитики в расширении, код и ограничения открыты на GitHub.',
-    chips: ['бесплатно сейчас', 'актуально 2026', 'рабочая beta', 'новый Pure автолайкер', 'без сторонней аналитики']
+    chips: [
+      'бесплатно сейчас',
+      'бесплатный автолайкер Pure 2026',
+      'автолайк Pure бесплатно',
+      'актуально 2026',
+      'рабочая beta',
+      'рабочий Pure автолайкер',
+      'новый Pure автолайкер',
+      'лайкер Pure Web',
+      'Пьюр автолайкер бесплатно',
+      'Pure автолайк Chrome',
+      'Chrome Web Store Pure',
+      'прозрачная установка',
+      'проверяемый GitHub-код',
+      'без сторонней аналитики',
+      'без desktop-бота',
+      'Telegram уведомления Pure',
+      'открытие фото Pure',
+      'Pure Web automation'
+    ]
   },
   en: {
     titleParts: ['Free', '2026'],
@@ -20,7 +39,26 @@ const searchHooks = {
     label: 'Free · updated for 2026',
     h1Prefix: 'Free 2026 beta:',
     trustLine: 'Free beta, updated for 2026: Chrome Web Store install, no third-party analytics in the extension, source and limits are visible on GitHub.',
-    chips: ['free right now', 'updated for 2026', 'working beta', 'new Pure auto liker', 'no third-party analytics']
+    chips: [
+      'free right now',
+      'free Pure auto liker 2026',
+      'Pure autolike free',
+      'updated for 2026',
+      'working beta',
+      'working Pure auto liker',
+      'new Pure auto liker',
+      'Pure app auto like',
+      'Pure Web Chrome extension',
+      'Chrome Web Store Pure',
+      'Pure autoclick alternative',
+      'Pure bot alternative',
+      'accessible Pure photos',
+      'Telegram alerts for Pure',
+      'GitHub source',
+      'transparent install',
+      'no third-party analytics',
+      'no desktop bot'
+    ]
   }
 };
 
