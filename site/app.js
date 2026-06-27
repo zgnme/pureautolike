@@ -5,8 +5,8 @@ document.documentElement.classList.add('js');
 
 const locales = {
   ru: {
-    title: 'PureAutoLike - бесплатный автолайкер Pure 2026',
-    description: 'Бесплатная beta PureAutoLike актуальна в 2026: рабочий автолайкер Pure Web, доступные фото, Telegram-уведомления, таймеры и GitHub-код без сторонней аналитики.',
+    title: 'Pure AutoLike бесплатно 2026 | актуальный автолайкер Pure',
+    description: 'Pure AutoLike бесплатно и актуально в 2026: рабочий автолайкер Pure Web, доступные фото, Telegram-уведомления, таймеры и GitHub-код без сторонней аналитики.',
     video: 'assets/videos/hero-ru.mp4',
     poster: 'assets/posters/hero-ru.jpg',
     shareImage: `${SITE_URL}assets/posters/hero-ru.jpg`,
@@ -15,7 +15,7 @@ const locales = {
     navFaq: 'FAQ',
     installShort: 'Install',
     heroKicker: 'Бесплатная beta 2026',
-    heroTitle: 'PureAutoLike',
+    heroTitle: 'Pure AutoLike бесплатно 2026',
     installCta: 'Установить',
     githubCta: 'GitHub',
     featuresLabel: 'Функции',
@@ -104,8 +104,8 @@ const locales = {
     }
   },
   en: {
-    title: 'PureAutoLike - free Pure auto liker 2026',
-    description: 'Free PureAutoLike beta for 2026: working Pure Web auto liker, accessible photos, Telegram alerts, timers, and GitHub source with no third-party analytics.',
+    title: 'Pure AutoLike Free 2026 | Updated Pure Auto Liker',
+    description: 'Pure AutoLike is free and updated for 2026: working Pure Web auto liker, accessible photos, Telegram alerts, timers, and GitHub source with no third-party analytics.',
     video: 'assets/videos/hero-en.mp4',
     poster: 'assets/posters/hero-en.jpg',
     shareImage: `${SITE_URL}assets/posters/hero-en.jpg`,
@@ -114,7 +114,7 @@ const locales = {
     navFaq: 'FAQ',
     installShort: 'Install',
     heroKicker: 'Free beta 2026',
-    heroTitle: 'PureAutoLike',
+    heroTitle: 'Pure AutoLike Free 2026',
     installCta: 'Install',
     githubCta: 'GitHub',
     featuresLabel: 'Features',

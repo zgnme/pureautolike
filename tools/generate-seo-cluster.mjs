@@ -7,10 +7,10 @@ const modified = '2026-06-27';
 
 const searchHooks = {
   ru: {
-    titleParts: ['Бесплатно', '2026'],
-    descriptionPrefix: 'Бесплатная beta 2026: ',
+    titlePrefix: 'Pure AutoLike бесплатно 2026 | актуально',
+    descriptionPrefix: 'Pure AutoLike бесплатно и актуально в 2026: ',
     label: 'Бесплатно · актуально 2026',
-    h1Prefix: 'Бесплатная beta 2026:',
+    h1Prefix: 'Pure AutoLike бесплатно 2026:',
     trustLine: 'Бесплатная beta, актуально для 2026: установка через Chrome Web Store, без сторонней аналитики в расширении, код и ограничения открыты на GitHub.',
     chips: [
       'бесплатно сейчас',
@@ -34,10 +34,10 @@ const searchHooks = {
     ]
   },
   en: {
-    titleParts: ['Free', '2026'],
-    descriptionPrefix: 'Free beta for 2026: ',
+    titlePrefix: 'Pure AutoLike Free 2026 | Updated',
+    descriptionPrefix: 'Pure AutoLike is free and updated for 2026: ',
     label: 'Free · updated for 2026',
-    h1Prefix: 'Free 2026 beta:',
+    h1Prefix: 'Pure AutoLike Free 2026:',
     trustLine: 'Free beta, updated for 2026: Chrome Web Store install, no third-party analytics in the extension, source and limits are visible on GitHub.',
     chips: [
       'free right now',
@@ -350,8 +350,11 @@ function unique(items) {
 
 function withSearchHooks(page) {
   const hook = searchHooks[page.lang];
-  const missingTitleParts = hook.titleParts.filter((part) => !hasPhrase(page.title, part));
-  const title = missingTitleParts.length > 0 ? `${missingTitleParts.join(' ')}: ${page.title}` : page.title;
+  const cleanTitle = page.title
+    .replace(/\s*\|\s*PureAutoLike(?: Beta)?$/, '')
+    .replace(/^Бесплатно 2026:\s*/i, '')
+    .replace(/^Free 2026:\s*/i, '');
+  const title = `${hook.titlePrefix}: ${cleanTitle}`;
   const description = hasPhrase(page.description, hook.descriptionPrefix.trim())
     ? page.description
     : `${hook.descriptionPrefix}${page.description}`;
