@@ -9,6 +9,8 @@
   ·
   <a href="https://zgnoff.github.io/pureautolike/"><strong>Website</strong></a>
   ·
+  <a href="https://zgnoff.github.io/pureautolike/en/"><strong>Pure Auto Liker Page</strong></a>
+  ·
   <a href="README.md"><strong>Main README</strong></a>
   ·
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Install</strong></a>
@@ -159,6 +161,8 @@ PureAutoLike is designed for users searching for:
 - Pure Telegram notifications
 - Chrome extension for Pure
 - lightweight Pure autoliker
+- Pure app auto liker
+- Pure Web auto like extension
 
 The wording is kept natural instead of keyword-stuffed so the article remains
 readable for people and clear for search engines.

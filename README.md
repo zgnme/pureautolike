@@ -13,6 +13,10 @@
   ·
   <a href="https://zgnoff.github.io/pureautolike/"><strong>Website</strong></a>
   ·
+  <a href="https://zgnoff.github.io/pureautolike/en/"><strong>SEO EN</strong></a>
+  ·
+  <a href="https://zgnoff.github.io/pureautolike/ru/"><strong>SEO RU</strong></a>
+  ·
   <a href="README.en.md"><strong>English</strong></a>
   ·
   <a href="README.ru.md"><strong>Русский</strong></a>
@@ -29,6 +33,7 @@
 <p align="center">
   <img alt="Beta" src="https://img.shields.io/badge/status-free%20beta-ff0a68?style=flat-square">
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><img alt="Chrome Web Store" src="https://img.shields.io/badge/install-Chrome%20Web%20Store-111111?style=flat-square"></a>
+  <img alt="Pure auto liker" src="https://img.shields.io/badge/search-Pure%20auto%20liker-ff0a68?style=flat-square">
   <img alt="WebExtension" src="https://img.shields.io/badge/platform-WebExtension-111111?style=flat-square">
   <img alt="Local first" src="https://img.shields.io/badge/storage-local%20settings-f5f5f5?style=flat-square&labelColor=111111">
   <img alt="No analytics" src="https://img.shields.io/badge/analytics-none-32d74b?style=flat-square&labelColor=111111">

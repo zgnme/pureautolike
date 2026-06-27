@@ -9,6 +9,8 @@
   ·
   <a href="https://zgnoff.github.io/pureautolike/"><strong>Сайт</strong></a>
   ·
+  <a href="https://zgnoff.github.io/pureautolike/ru/"><strong>Страница автолайкера Pure</strong></a>
+  ·
   <a href="README.md"><strong>Главная</strong></a>
   ·
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Установка</strong></a>
@@ -159,6 +161,8 @@ endpoint, поэтому после выключения beta backend сможе
 - автоматизация Pure Web
 - Telegram уведомления Pure
 - легкое расширение Pure
+- Pure автолайкер Chrome
+- расширение Pure Web для автолайка
 
 Ключи встроены естественно, без переспама, чтобы текст выглядел нормально и для
 людей, и для поисковых систем.
