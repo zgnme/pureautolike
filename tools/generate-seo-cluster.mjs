@@ -5,6 +5,25 @@ const baseUrl = 'https://zgnoff.github.io/pureautolike';
 const storeUrl = 'https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm';
 const modified = '2026-06-27';
 
+const searchHooks = {
+  ru: {
+    titleParts: ['Бесплатно', '2026'],
+    descriptionPrefix: 'Бесплатная beta 2026: ',
+    label: 'Бесплатно · актуально 2026',
+    h1Prefix: 'Бесплатная beta 2026:',
+    trustLine: 'Бесплатная beta, актуально для 2026: установка через Chrome Web Store, без сторонней аналитики в расширении, код и ограничения открыты на GitHub.',
+    chips: ['бесплатно сейчас', 'актуально 2026', 'рабочая beta', 'новый Pure автолайкер', 'без сторонней аналитики']
+  },
+  en: {
+    titleParts: ['Free', '2026'],
+    descriptionPrefix: 'Free beta for 2026: ',
+    label: 'Free · updated for 2026',
+    h1Prefix: 'Free 2026 beta:',
+    trustLine: 'Free beta, updated for 2026: Chrome Web Store install, no third-party analytics in the extension, source and limits are visible on GitHub.',
+    chips: ['free right now', 'updated for 2026', 'working beta', 'new Pure auto liker', 'no third-party analytics']
+  }
+};
+
 const pages = [
   {
     lang: 'ru',
@@ -277,7 +296,44 @@ function alternatePage(page) {
   return counterpart ? pageUrl(counterpart) : '';
 }
 
+function hasPhrase(value, phrase) {
+  return value.toLocaleLowerCase().includes(phrase.toLocaleLowerCase());
+}
+
+function unique(items) {
+  const seen = new Set();
+  return items.filter((item) => {
+    const key = item.toLocaleLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function withSearchHooks(page) {
+  const hook = searchHooks[page.lang];
+  const missingTitleParts = hook.titleParts.filter((part) => !hasPhrase(page.title, part));
+  const title = missingTitleParts.length > 0 ? `${missingTitleParts.join(' ')}: ${page.title}` : page.title;
+  const description = hasPhrase(page.description, hook.descriptionPrefix.trim())
+    ? page.description
+    : `${hook.descriptionPrefix}${page.description}`;
+  const label = hasPhrase(page.label, hook.label) ? page.label : `${hook.label} · ${page.label}`;
+  const h1 = hasPhrase(page.h1, hook.h1Prefix) ? page.h1 : `${hook.h1Prefix} ${page.h1}`;
+
+  return {
+    ...page,
+    title,
+    description,
+    label,
+    h1,
+    lead: page.lead,
+    trustLine: hook.trustLine,
+    chips: unique([...hook.chips, ...page.chips])
+  };
+}
+
 function renderPage(page) {
+  const seo = withSearchHooks(page);
   const url = pageUrl(page);
   const alt = alternatePage(page);
   const isRu = page.lang === 'ru';
@@ -299,14 +355,14 @@ function renderPage(page) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(page.title)}</title>
-  <meta name="description" content="${escapeHtml(page.description)}">
+  <title>${escapeHtml(seo.title)}</title>
+  <meta name="description" content="${escapeHtml(seo.description)}">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="${url}">
   <link rel="alternate" hreflang="${page.lang}" href="${url}">
   ${alt ? `<link rel="alternate" hreflang="${isRu ? 'en' : 'ru'}" href="${alt}">` : ''}
-  <meta property="og:title" content="${escapeHtml(page.title)}">
-  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:title" content="${escapeHtml(seo.title)}">
+  <meta property="og:description" content="${escapeHtml(seo.description)}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${baseUrl}/assets/posters/hero-${page.lang}.jpg">
@@ -321,7 +377,7 @@ function renderPage(page) {
         name: 'PureAutoLike',
         applicationCategory: 'BrowserApplication',
         operatingSystem: isRu ? 'Chrome, Chromium, Edge, Brave, Opera, Arc, Яндекс Браузер' : 'Chrome, Chromium, Edge, Brave, Opera, Arc, Yandex Browser',
-        description: page.description,
+        description: seo.description,
         url,
         downloadUrl: storeUrl,
         dateModified: modified,
@@ -359,9 +415,10 @@ function renderPage(page) {
     </header>
 
     <article class="article-hero">
-      <p class="section-label">${escapeHtml(page.label)}</p>
-      <h1>${escapeHtml(page.h1)}</h1>
-      <p class="article-lead">${escapeHtml(page.lead)}</p>
+      <p class="section-label">${escapeHtml(seo.label)}</p>
+      <h1>${escapeHtml(seo.h1)}</h1>
+      <p class="article-lead">${escapeHtml(seo.lead)}</p>
+      <p class="article-search-hook">${escapeHtml(seo.trustLine)}</p>
       <div class="hero-ctas">
         <a class="primary-cta" href="${storeUrl}">${isRu ? 'Установить бесплатно' : 'Install for free'}</a>
         <a class="secondary-cta" href="https://github.com/zgnoff/pureautolike">${isRu ? 'Открыть GitHub' : 'Open GitHub'}</a>
@@ -370,7 +427,7 @@ function renderPage(page) {
 
     <section id="details" class="article-body">
       <div class="intent-strip" aria-label="${isRu ? 'Ключевые запросы' : 'Key search intents'}">
-        ${page.chips.map((chip) => `<span>${escapeHtml(chip)}</span>`).join('\n        ')}
+        ${seo.chips.map((chip) => `<span>${escapeHtml(chip)}</span>`).join('\n        ')}
       </div>
       ${page.sections.map(([heading, body]) => `<h2>${escapeHtml(heading)}</h2>\n      <p>${escapeHtml(body)}</p>`).join('\n\n      ')}
       <h2>${isRu ? 'Что делает PureAutoLike' : 'What PureAutoLike does'}</h2>
