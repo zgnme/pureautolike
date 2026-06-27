@@ -17,6 +17,10 @@
   ·
   <a href="https://zgnoff.github.io/pureautolike/ru/"><strong>SEO RU</strong></a>
   ·
+  <a href="https://zgnoff.github.io/pureautolike/en/pure-autolike/"><strong>Pure autolike</strong></a>
+  ·
+  <a href="https://zgnoff.github.io/pureautolike/ru/pure-avtolayk/"><strong>Pure автолайк</strong></a>
+  ·
   <a href="README.en.md"><strong>English</strong></a>
   ·
   <a href="README.ru.md"><strong>Русский</strong></a>

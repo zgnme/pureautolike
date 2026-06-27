@@ -616,7 +616,8 @@ h3 {
 }
 
 .seo-links a,
-.keyword-list span {
+.keyword-list span,
+.keyword-list a {
   display: inline-flex;
   min-height: 38px;
   align-items: center;
@@ -697,6 +698,108 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.article-page {
+  color-scheme: dark;
+}
+
+.article-hero,
+.article-body,
+.article-faq {
+  width: min(960px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.article-hero {
+  padding: 108px 0 66px;
+}
+
+.article-hero h1 {
+  max-width: 850px;
+}
+
+.article-lead {
+  max-width: 760px;
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: clamp(18px, 2.2vw, 23px);
+  line-height: 1.44;
+}
+
+.article-body {
+  padding: 18px 0 70px;
+}
+
+.article-body h2 {
+  margin-top: 48px;
+  font-size: clamp(28px, 4vw, 44px);
+}
+
+.article-body p {
+  max-width: 780px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.62;
+}
+
+.article-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 26px 0 8px;
+}
+
+.article-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 34px;
+}
+
+.article-links a {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(255, 240, 222, 0.08);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: var(--ring);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  margin: 24px 0 8px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: var(--ring);
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.42;
+}
+
+.comparison-table th {
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: 0;
 }
 
 .trust-band {
@@ -840,6 +943,10 @@ details p {
     aspect-ratio: 16 / 9;
   }
 
+  .article-grid {
+    grid-template-columns: 1fr;
+  }
+
   .scenario-panel,
   .trust-band {
     grid-template-columns: 1fr;
@@ -974,6 +1081,19 @@ details p {
 
   .seo-content {
     padding: 52px 0;
+  }
+
+  .article-hero {
+    padding: 84px 0 48px;
+  }
+
+  .article-body {
+    padding-bottom: 52px;
+  }
+
+  .comparison-table {
+    display: block;
+    overflow-x: auto;
   }
 
   .feature-item {

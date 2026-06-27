@@ -11,6 +11,10 @@
   ·
   <a href="https://zgnoff.github.io/pureautolike/ru/"><strong>Страница автолайкера Pure</strong></a>
   ·
+  <a href="https://zgnoff.github.io/pureautolike/ru/pure-avtolayk/"><strong>Pure автолайк</strong></a>
+  ·
+  <a href="https://zgnoff.github.io/pureautolike/ru/avtolayker-pure-guide/"><strong>Гайд по автолайкеру</strong></a>
+  ·
   <a href="README.md"><strong>Главная</strong></a>
   ·
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Установка</strong></a>
