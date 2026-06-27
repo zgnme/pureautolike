@@ -19,31 +19,60 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
       {
-        "@type": "Question",
-        "name": "What is Pure autolike?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Pure autolike means automating visible like actions in the Pure Web feed. PureAutoLike does it as a browser extension inside the open Pure tab."
+        "@type": "SoftwareApplication",
+        "name": "PureAutoLike",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome, Chromium, Edge, Brave, Opera, Arc, Yandex Browser",
+        "description": "PureAutoLike is a Pure Web auto liker extension with accessible photo opening, Telegram notifications, timers, and local export.",
+        "url": "https://zgnoff.github.io/pureautolike/en/pure-autolike/",
+        "downloadUrl": "https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
         }
       },
       {
-        "@type": "Question",
-        "name": "Is PureAutoLike a generic autoclicker?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. PureAutoLike is built for Pure Web and focuses on visible feed likes, accessible photo opening, Telegram notifications, timers, and local export."
-        }
+        "@type": "HowTo",
+        "name": "How to use PureAutoLike for Pure Web",
+        "step": [
+          { "@type": "HowToStep", "name": "Install the extension from Chrome Web Store" },
+          { "@type": "HowToStep", "name": "Open Pure Web in the same browser profile" },
+          { "@type": "HowToStep", "name": "Start auto-like from the extension popup" },
+          { "@type": "HowToStep", "name": "Optionally enable Telegram alerts and timers" }
+        ]
       },
       {
-        "@type": "Question",
-        "name": "Does PureAutoLike guarantee matches?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. It reduces repetitive feed work, but it does not control Pure ranking, replies, moderation, or geolocation."
-        }
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Pure autolike?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pure autolike means automating visible like actions in the Pure Web feed. PureAutoLike does it as a browser extension inside the open Pure tab."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is PureAutoLike a generic autoclicker?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. PureAutoLike is built for Pure Web and focuses on visible feed likes, accessible photo opening, Telegram notifications, timers, and local export."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does PureAutoLike guarantee matches?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It reduces repetitive feed work, but it does not control Pure ranking, replies, moderation, or geolocation."
+            }
+          }
+        ]
       }
     ]
   }
@@ -81,6 +110,14 @@
       <h2>What the Pure autolike flow does</h2>
       <p>The extension looks for visible Pure Web like controls in the current tab, runs the local click flow, and keeps a session guard so the same visible profile is not processed again during the current run.</p>
       <p>It is not a separate desktop bot. It does not need a second app window. It works where the Pure session already lives: the browser tab.</p>
+      <div class="intent-strip" aria-label="Key search intents">
+        <span>Pure autolike</span>
+        <span>Pure auto liker</span>
+        <span>Pure app auto like</span>
+        <span>Pure bot alternative</span>
+        <span>Pure hidden photo opener</span>
+        <span>Pure Telegram alerts</span>
+      </div>
       <div class="seo-grid article-grid">
         <article class="seo-card">
           <h3>Visible-feed likes</h3>
@@ -97,7 +134,16 @@
       </div>
 
       <h2>Who this page is for</h2>
-      <p>This page targets searches like <strong>pure autolike</strong>, <strong>pure auto liker extension</strong>, <strong>pure app auto like</strong>, and <strong>Chrome extension for Pure</strong>. The product is intentionally narrow: automate repetitive Pure Web feed work and keep the rest transparent.</p>
+      <p>This page targets searches like <strong>pure autolike</strong>, <strong>pure auto liker extension</strong>, <strong>pure app auto like</strong>, <strong>pure bot</strong>, <strong>Pure hidden photo opener</strong>, and <strong>Chrome extension for Pure</strong>. The product is intentionally narrow: automate repetitive Pure Web feed work and keep the rest transparent.</p>
+
+      <h2>Install, price, and trust</h2>
+      <p>PureAutoLike is currently a free beta distributed through Chrome Web Store. The code, privacy policy, issue tracker, and release notes stay visible on GitHub, so users can verify what the extension does before installing it.</p>
+      <ul class="article-checklist">
+        <li>Published Chrome Web Store install path.</li>
+        <li>No third-party analytics in the extension.</li>
+        <li>Telegram alerts are optional and off by default.</li>
+        <li>Local export runs only when enabled manually.</li>
+      </ul>
 
       <h2>Important limits</h2>
       <p>PureAutoLike does not promise a Pure unban, hidden ranking changes, guaranteed replies, or more matches by itself. It can make repetitive likes faster; it cannot control how Pure ranks, moderates, or shows profiles.</p>

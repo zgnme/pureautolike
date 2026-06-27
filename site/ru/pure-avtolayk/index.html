@@ -19,31 +19,60 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
       {
-        "@type": "Question",
-        "name": "Что такое Pure автолайк?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Pure автолайк - это автоматизация лайков видимых анкет в веб-версии Pure. PureAutoLike делает это как Chrome-расширение в открытой вкладке Pure Web."
+        "@type": "SoftwareApplication",
+        "name": "PureAutoLike",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome, Chromium, Edge, Brave, Opera, Arc, Яндекс Браузер",
+        "description": "PureAutoLike - автолайкер Pure Web с открытием доступных фото, Telegram-уведомлениями, таймерами и локальным экспортом.",
+        "url": "https://zgnoff.github.io/pureautolike/ru/pure-avtolayk/",
+        "downloadUrl": "https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
         }
       },
       {
-        "@type": "Question",
-        "name": "PureAutoLike это обычный автокликер?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Нет. Расширение сделано под Pure Web и фокусируется на лайках, доступных фото, Telegram-уведомлениях, таймерах и локальном экспорте."
-        }
+        "@type": "HowTo",
+        "name": "Как использовать PureAutoLike для Pure Web",
+        "step": [
+          { "@type": "HowToStep", "name": "Установить расширение из Chrome Web Store" },
+          { "@type": "HowToStep", "name": "Открыть Pure Web в том же браузерном профиле" },
+          { "@type": "HowToStep", "name": "Запустить автолайк из popup расширения" },
+          { "@type": "HowToStep", "name": "При желании включить Telegram-уведомления и таймеры" }
+        ]
       },
       {
-        "@type": "Question",
-        "name": "PureAutoLike гарантирует матчи или разбан?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Нет. Расширение уменьшает ручную работу в ленте, но не управляет ранжированием, модерацией, геопозицией или ответами пользователей."
-        }
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Что такое Pure автолайк?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pure автолайк - это автоматизация лайков видимых анкет в веб-версии Pure. PureAutoLike делает это как Chrome-расширение в открытой вкладке Pure Web."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "PureAutoLike это обычный автокликер?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Нет. Расширение сделано под Pure Web и фокусируется на лайках, доступных фото, Telegram-уведомлениях, таймерах и локальном экспорте."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "PureAutoLike гарантирует матчи или разбан?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Нет. Расширение уменьшает ручную работу в ленте, но не управляет ранжированием, модерацией, геопозицией или ответами пользователей."
+            }
+          }
+        ]
       }
     ]
   }
@@ -81,6 +110,14 @@
       <h2>Как работает автолайк Pure</h2>
       <p>Расширение работает в браузере, где уже открыта веб-версия Pure. Оно находит видимые кнопки лайка, запускает локальный click-flow и не обрабатывает повторно одну и ту же видимую анкету в текущей сессии.</p>
       <p>Это не сервис “лайки за тебя” и не отдельная программа. PureAutoLike остается внутри браузерного профиля, где уже есть твоя Pure-сессия.</p>
+      <div class="intent-strip" aria-label="Ключевые поисковые интенты">
+        <span>Pure автолайк</span>
+        <span>Пьюр автолайк</span>
+        <span>автолайкер Pure</span>
+        <span>пьюр бот</span>
+        <span>фото Pure</span>
+        <span>Telegram Pure</span>
+      </div>
       <div class="seo-grid article-grid">
         <article class="seo-card">
           <h3>Автолайк анкет</h3>
@@ -97,7 +134,16 @@
       </div>
 
       <h2>Под какие запросы подходит</h2>
-      <p>Страница отвечает на запросы <strong>pure автолайк</strong>, <strong>пьюр автолайк</strong>, <strong>автолайкер Pure</strong>, <strong>Pure автолайкер Chrome</strong>, <strong>расширение для Pure Web</strong> и <strong>открытие скрытых фото Pure</strong>.</p>
+      <p>Страница отвечает на запросы <strong>pure автолайк</strong>, <strong>пьюр автолайк</strong>, <strong>автолайкер Pure</strong>, <strong>автолайкер для Pure</strong>, <strong>бот Pure</strong>, <strong>пьюр бот</strong>, <strong>Pure автолайкер Chrome</strong>, <strong>расширение для Pure Web</strong> и <strong>открытие скрытых фото Pure</strong>.</p>
+
+      <h2>Установка, цена и доверие</h2>
+      <p>PureAutoLike сейчас работает как бесплатная beta и устанавливается через Chrome Web Store. Код, политика приватности, обратная связь и технические ограничения опубликованы на GitHub, поэтому перед установкой можно проверить, что именно делает расширение.</p>
+      <ul class="article-checklist">
+        <li>Публичный канал установки - Chrome Web Store.</li>
+        <li>В расширении нет сторонней аналитики.</li>
+        <li>Telegram-уведомления включаются только вручную.</li>
+        <li>Локальный экспорт запускается только по твоему действию.</li>
+      </ul>
 
       <h2>Чего расширение не обещает</h2>
       <p>PureAutoLike не делает разбан Pure, не гарантирует матчи, не меняет геопозицию, не управляет модерацией и не обещает ответы. Его задача проще: убрать ручную рутину в открытой вкладке Pure Web.</p>

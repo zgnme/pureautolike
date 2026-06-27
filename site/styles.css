@@ -748,6 +748,48 @@ h3 {
   margin: 26px 0 8px;
 }
 
+.intent-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.intent-strip span,
+.article-checklist li {
+  box-shadow: var(--ring);
+}
+
+.intent-strip span {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 13px;
+  background: rgba(255, 240, 222, 0.08);
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.article-checklist {
+  display: grid;
+  gap: 8px;
+  max-width: 780px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-checklist li {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.052);
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
 .article-links {
   display: flex;
   flex-wrap: wrap;
