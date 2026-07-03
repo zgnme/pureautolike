@@ -14,7 +14,7 @@ repository yet:
 
 - `PureAutoLike`
 - `PureAutoLike GitHub`
-- `site:github.com/zgnoff/pureautolike PureAutoLike`
+- `site:github.com/zgnme/pureautolike PureAutoLike`
 
 That is normal immediately after a repository becomes public or after history
 cleanup. The README and repository metadata should carry the strongest product

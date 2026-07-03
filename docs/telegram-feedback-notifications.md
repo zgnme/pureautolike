@@ -30,9 +30,9 @@ GitHub UI path:
 GitHub CLI alternative:
 
 ```bash
-gh secret set TELEGRAM_BOT_TOKEN --repo zgnoff/pureautolike --body '<bot token>'
-gh secret set TELEGRAM_CHAT_ID --repo zgnoff/pureautolike --body '<chat id>'
-gh secret set TELEGRAM_THREAD_ID --repo zgnoff/pureautolike --body '<thread id>'
+gh secret set TELEGRAM_BOT_TOKEN --repo zgnme/pureautolike --body '<bot token>'
+gh secret set TELEGRAM_CHAT_ID --repo zgnme/pureautolike --body '<chat id>'
+gh secret set TELEGRAM_THREAD_ID --repo zgnme/pureautolike --body '<thread id>'
 ```
 
 Skip `TELEGRAM_THREAD_ID` if messages go to a normal personal chat or group.
@@ -54,7 +54,7 @@ After secrets are configured, run the workflow manually:
 
 ```bash
 gh workflow run telegram-feedback.yml \
-  --repo zgnoff/pureautolike \
+  --repo zgnme/pureautolike \
   -f message='PureAutoLike Telegram feedback test'
 ```
 

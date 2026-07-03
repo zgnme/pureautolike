@@ -7,13 +7,13 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Chrome Web Store</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/"><strong>Website</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/"><strong>Website</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/en/"><strong>Pure Auto Liker Page</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/en/"><strong>Pure Auto Liker Page</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/en/pure-autolike/"><strong>Pure Autolike</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/en/pure-autolike/"><strong>Pure Autolike</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/en/pure-autoclick-vs-autolike/"><strong>Pure Autoclick Guide</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/en/pure-autoclick-vs-autolike/"><strong>Pure Autoclick Guide</strong></a>
   ·
   <a href="README.md"><strong>Main README</strong></a>
   ·

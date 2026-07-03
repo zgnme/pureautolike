@@ -1,5 +1,5 @@
 const STORE_URL = 'https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm';
-const SITE_URL = 'https://zgnoff.github.io/pureautolike/';
+const SITE_URL = 'https://zgnme.github.io/pureautolike/';
 const LANGUAGE_STORAGE_KEY = 'pureautolike.site.language';
 document.documentElement.classList.add('js');
 

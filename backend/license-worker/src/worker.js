@@ -78,7 +78,7 @@ const PRIVACY_HTML = `<!doctype html>
   <p>Users can disable Telegram notifications and local profile capture at any time from the extension popup. Users can clear locally captured profile notes from the popup. Users can remove all extension-local data by uninstalling the extension or clearing the extension's browser storage.</p>
 
   <h2>Contact</h2>
-  <p>For support or privacy questions, use GitHub Issues: <a href="https://github.com/zgnoff/pureautolike/issues">github.com/zgnoff/pureautolike/issues</a>.</p>
+  <p>For support or privacy questions, use GitHub Issues: <a href="https://github.com/zgnme/pureautolike/issues">github.com/zgnme/pureautolike/issues</a>.</p>
 </main>
 </body>
 </html>`;

@@ -11,15 +11,15 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"><strong>Chrome Web Store</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/"><strong>Website</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/"><strong>Website</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/en/"><strong>SEO EN</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/en/"><strong>SEO EN</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/ru/"><strong>SEO RU</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/ru/"><strong>SEO RU</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/en/pure-autolike/"><strong>Pure autolike</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/en/pure-autolike/"><strong>Pure autolike</strong></a>
   ·
-  <a href="https://zgnoff.github.io/pureautolike/ru/pure-avtolayk/"><strong>Pure автолайк</strong></a>
+  <a href="https://zgnme.github.io/pureautolike/ru/pure-avtolayk/"><strong>Pure автолайк</strong></a>
   ·
   <a href="README.en.md"><strong>English</strong></a>
   ·

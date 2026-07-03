@@ -7,7 +7,7 @@ Use this checklist after the GitHub Pages site is live.
 Create a URL-prefix property:
 
 ```text
-https://zgnoff.github.io/pureautolike/
+https://zgnme.github.io/pureautolike/
 ```
 
 ## Sitemap
@@ -15,7 +15,7 @@ https://zgnoff.github.io/pureautolike/
 Submit this sitemap:
 
 ```text
-https://zgnoff.github.io/pureautolike/sitemap.xml
+https://zgnme.github.io/pureautolike/sitemap.xml
 ```
 
 ## Request Indexing
@@ -23,7 +23,7 @@ https://zgnoff.github.io/pureautolike/sitemap.xml
 Open URL Inspection and inspect:
 
 ```text
-https://zgnoff.github.io/pureautolike/
+https://zgnme.github.io/pureautolike/
 ```
 
 Then click **Request indexing**.

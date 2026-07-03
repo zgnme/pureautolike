@@ -237,7 +237,7 @@ const popup = await read('popup.html');
 for (const id of ['licenseBadge', 'languageToggle', 'feedbackLink', 'likes', 'telegramEnabled', 'telegramBotToken', 'telegramChatId', 'telegramMatches', 'telegramMessages', 'telegramLikes', 'telegramTest', 'profileCaptureEnabled', 'profileCaptureExport', 'profileCaptureClear', 'profileCaptureCount', 'autoStopMinutes', 'closeTabMinutes', 'timerStatus', 'clickJitter']) {
   assert(popup.includes(`id="${id}"`), `popup must expose ${id}`);
 }
-assert(popup.includes('https://github.com/zgnoff/pureautolike/issues/new/choose'), 'popup must link feedback to GitHub issue forms');
+assert(popup.includes('https://github.com/zgnme/pureautolike/issues/new/choose'), 'popup must link feedback to GitHub issue forms');
 assert(popup.includes('BETA'), 'popup must show a beta badge while access is free');
 assert(popup.includes('id="telegramPanel"'), 'popup must expose Telegram panel state');
 for (const removedMetric of ['id="failures"', 'id="tokenState"', 'Ошибки', 'Сессия', 'diagnosticsText', 'diagnostic-panel']) {

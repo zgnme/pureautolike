@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zgnoff.github.io/pureautolike/sitemap.xml
+Sitemap: https://zgnme.github.io/pureautolike/sitemap.xml

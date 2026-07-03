@@ -2,7 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 
 const OUTPUT_DIR = new URL('../docs/seo-audit/', import.meta.url);
 const MAX_RESULTS = Number(process.env.SEO_AUDIT_LIMIT || 20);
-const USER_AGENT = 'Mozilla/5.0 (compatible; PureAutoLikeSeoAudit/1.0; +https://zgnoff.github.io/pureautolike/)';
+const USER_AGENT = 'Mozilla/5.0 (compatible; PureAutoLikeSeoAudit/1.0; +https://zgnme.github.io/pureautolike/)';
 
 const queries = [
   'pure autolike',
@@ -125,7 +125,7 @@ async function searchDuckDuckGo(query) {
       const url = normalizeUrl(raw);
       if (!url) continue;
       if (url.includes('duckduckgo.com')) continue;
-      if (url.includes('zgnoff.github.io')) continue;
+      if (url.includes('zgnme.github.io')) continue;
       links.push(url);
     }
   }

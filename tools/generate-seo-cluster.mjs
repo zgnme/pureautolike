@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const siteRoot = new URL('../site/', import.meta.url);
-const baseUrl = 'https://zgnoff.github.io/pureautolike';
+const baseUrl = 'https://zgnme.github.io/pureautolike';
 const storeUrl = 'https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm';
 const modified = '2026-06-27';
 
@@ -462,7 +462,7 @@ function renderPage(page) {
       <p class="article-search-hook">${escapeHtml(seo.trustLine)}</p>
       <div class="hero-ctas">
         <a class="primary-cta" href="${storeUrl}">${isRu ? 'Установить бесплатно' : 'Install for free'}</a>
-        <a class="secondary-cta" href="https://github.com/zgnoff/pureautolike">${isRu ? 'Открыть GitHub' : 'Open GitHub'}</a>
+        <a class="secondary-cta" href="https://github.com/zgnme/pureautolike">${isRu ? 'Открыть GitHub' : 'Open GitHub'}</a>
       </div>
     </article>
 

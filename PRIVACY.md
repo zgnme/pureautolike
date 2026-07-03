@@ -75,4 +75,4 @@ or clearing the extension's browser storage.
 ## Contact
 
 For support or privacy questions, use GitHub Issues:
-https://github.com/zgnoff/pureautolike/issues
+https://github.com/zgnme/pureautolike/issues
