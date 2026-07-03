@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PureAutoLike Privacy Policy</title>
+  <meta name="description" content="Privacy policy for the PureAutoLike browser extension: what data is processed in the browser, what is sent to PureAutoLike services and third parties, and how users stay in control.">
+  <link rel="canonical" href="https://zgnme.github.io/pureautolike/privacy/">
+  <link rel="icon" href="../favicon.ico" sizes="48x48">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <style>
+    body {
+      margin: 0;
+      background: #f6f5f2;
+      color: #171717;
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 24px 72px;
+    }
+    h1, h2 {
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+    }
+    h2 {
+      margin-top: 34px;
+      font-size: 22px;
+    }
+    .updated {
+      margin: 0 0 32px;
+      color: #666;
+    }
+    code {
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: 6px;
+      padding: 2px 5px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>PureAutoLike Privacy Policy</h1>
+  <p class="updated">Last updated: June 21, 2026</p>
+
+  <p>PureAutoLike is a browser extension for users who run Pure Web in their own browser profile. It automates visible like clicks, opens hidden Pure photos when the active Pure web session already has access, can send optional Telegram alerts, and can export locally collected profile notes when the user enables that feature.</p>
+
+  <h2>Data Processed In The Browser</h2>
+  <p>PureAutoLike runs content scripts only on <code>https://pure.app/*</code>. Inside that page, the extension may process visible Pure page content, visible profile text, buttons, photo placeholders, chat and match events, and user interaction state needed to operate the extension.</p>
+  <p>The extension stores settings in browser extension storage. These settings can include feature toggles, local counters, Telegram notification settings, and a locally generated installation id for beta/license checks.</p>
+  <p>If Telegram notifications are enabled, the Telegram bot token and chat id entered by the user are stored in local browser extension storage and are sent to the Telegram Bot API only to send test notifications or selected Pure event alerts.</p>
+  <p>If local profile capture is enabled, visible profile status, age, descriptions, capture timestamps, and the current Pure page URL are stored locally in browser extension storage. They are exported only when the user clicks the Markdown export button and can be cleared by the user.</p>
+  <p>The Pure authorization header can be observed inside the active Pure page at runtime so the hidden photo opener can make Pure API/CDN requests already available to the logged-in web session. This value is kept in page memory for that runtime task and is not stored in extension settings.</p>
+
+  <h2>Data Sent To PureAutoLike Services</h2>
+  <p>The extension contacts the PureAutoLike license endpoint to support beta access now and paid access in the future. License requests may include a locally generated installation id, the extension id, the extension version, and the release channel.</p>
+  <p>If paid access is enabled later, subscription checks may also use an email address or payment customer id that the user provides through the payment flow. PureAutoLike does not process payment card numbers directly.</p>
+
+  <h2>Data Sent To Third Parties</h2>
+  <p>PureAutoLike sends data to third parties only for core extension features: Pure Web and Pure API/CDN endpoints are used inside the active Pure web session, Telegram Bot API is used only when the user enables Telegram notifications, and a payment provider may be used later for paid subscription checkout.</p>
+  <p>PureAutoLike does not sell user data. PureAutoLike does not use user data for advertising, creditworthiness, lending, or unrelated profiling.</p>
+
+  <h2>Remote Code</h2>
+  <p>The extension does not execute remote JavaScript or WebAssembly. Extension code is packaged with the browser extension. Network responses are used as data for extension features and license status, not as executable code.</p>
+
+  <h2>User Control</h2>
+  <p>Users can disable Telegram notifications and local profile capture at any time from the extension popup. Users can clear locally captured profile notes from the popup. Users can remove all extension-local data by uninstalling the extension or clearing the extension's browser storage.</p>
+
+  <h2>Contact</h2>
+  <p>For support or privacy questions, use GitHub Issues: <a href="https://github.com/zgnme/pureautolike/issues">github.com/zgnme/pureautolike/issues</a>.</p>
+</main>
+</body>
+</html>
