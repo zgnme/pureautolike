@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PureAutoLike Motion Hero | Автолайк Pure Web</title>
+  <meta name="description" content="Интерактивный hero для PureAutoLike: автолайк в Pure Web, Telegram-события и меньше ручной рутины в ленте.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#171214',
+            pure: '#ff0a68',
+            cream: '#fff0de',
+            studio: '#f2f4f3',
+            graphite: '#171214'
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html {
+      background: #d8dce0;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse 48rem 54rem at 50% 56%, rgba(241,244,245,0.98) 0%, rgba(232,237,239,0.96) 42%, rgba(219,224,227,0.9) 72%, rgba(207,209,215,0.88) 100%),
+        linear-gradient(90deg, #d8dce0 0%, #e1e6e8 28%, #dde2e4 56%, #d1d0d6 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 38rem 52rem at 50% 57%, rgba(255,255,255,0.94) 0 36%, rgba(255,255,255,0.58) 58%, rgba(255,255,255,0) 78%),
+        linear-gradient(90deg, rgba(188,202,204,0.16), rgba(255,255,255,0) 24%, rgba(255,255,255,0) 74%, rgba(198,192,201,0.2));
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto 0 0;
+      height: 34vh;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(236,238,239,0.48) 52%, rgba(214,218,222,0.72) 100%),
+        radial-gradient(ellipse 54rem 12rem at 50% 100%, rgba(23,18,20,0.12), transparent 72%);
+    }
+
+    #scrubVideo.is-fallback-video {
+      -webkit-mask-image: radial-gradient(ellipse 43% 66% at 50% 57%, #000 0%, #000 58%, rgba(0,0,0,.72) 73%, transparent 100%);
+      mask-image: radial-gradient(ellipse 43% 66% at 50% 57%, #000 0%, #000 58%, rgba(0,0,0,.72) 73%, transparent 100%);
+    }
+
+    #scrubSurface {
+      --wordmark-shift: 0px;
+      --wordmark-tilt: 0deg;
+      --wordmark-base-x: -8vw;
+      --wordmark-y: 52%;
+    }
+
+    .campaign-nav {
+      position: absolute;
+      top: clamp(1.1rem, 2.2vw, 2rem);
+      left: clamp(1.25rem, 4vw, 3.75rem);
+      right: clamp(1.25rem, 4vw, 3.75rem);
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      color: #171214;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .campaign-nav__brand {
+      font-size: clamp(1.05rem, 1.5vw, 1.45rem);
+      font-weight: 950;
+      line-height: .9;
+    }
+
+    .campaign-nav__meta {
+      display: flex;
+      align-items: center;
+      gap: clamp(.9rem, 2vw, 2rem);
+      font-size: .72rem;
+      font-weight: 900;
+      color: rgba(23,18,20,.58);
+      white-space: nowrap;
+    }
+
+    .campaign-copy {
+      position: absolute;
+      left: clamp(1.25rem, 5.4vw, 5.2rem);
+      right: clamp(1.25rem, 5.4vw, 5.2rem);
+      bottom: clamp(1.35rem, 3.8vw, 3.9rem);
+      z-index: 30;
+      display: grid;
+      grid-template-columns: minmax(0, 40rem) minmax(18rem, 27rem);
+      align-items: end;
+      justify-content: space-between;
+      gap: clamp(2rem, 7vw, 7rem);
+      pointer-events: none;
+    }
+
+    .campaign-copy h1 {
+      max-width: 9ch;
+      font-size: clamp(4.5rem, 8.4vw, 8.9rem);
+      font-weight: 950;
+      letter-spacing: 0;
+      line-height: .78;
+      text-transform: uppercase;
+    }
+
+    .campaign-copy__details {
+      justify-self: end;
+      max-width: 25rem;
+      text-align: right;
+    }
+
+    .campaign-copy__details p {
+      margin: 0;
+      font-size: clamp(.9rem, 1.05vw, 1.05rem);
+      font-weight: 750;
+      line-height: 1.58;
+      color: rgba(23,18,20,.58);
+    }
+
+    .campaign-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: .75rem;
+      margin-top: 1.35rem;
+      pointer-events: auto;
+    }
+
+    .campaign-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.05rem;
+      border-radius: 999px;
+      padding: 0 1.35rem;
+      font-size: .74rem;
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: transform 260ms cubic-bezier(.19,1,.22,1), border-color 260ms ease, background 260ms ease, color 260ms ease;
+    }
+
+    .campaign-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .campaign-button--primary {
+      background: #171214;
+      color: #fff;
+    }
+
+    .campaign-button--primary:hover {
+      background: #ff0a68;
+    }
+
+    .campaign-button--ghost {
+      border: 1px solid rgba(23,18,20,.16);
+      background: rgba(255,255,255,.42);
+      color: #171214;
+    }
+
+    .campaign-button--ghost:hover {
+      border-color: rgba(255,10,104,.62);
+      color: #ff0a68;
+    }
+
+    .brand-wordmark {
+      position: absolute;
+      left: 50%;
+      top: var(--wordmark-y);
+      z-index: 0;
+      pointer-events: none;
+      transform: translate(calc(-50% + var(--wordmark-base-x) + var(--wordmark-shift)), -50%) rotate(var(--wordmark-tilt));
+      transition: transform 900ms cubic-bezier(.19, 1, .22, 1);
+      white-space: nowrap;
+      mix-blend-mode: normal;
+    }
+
+    .brand-wordmark__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.4rem;
+      font-weight: 950;
+      letter-spacing: 0;
+      line-height: .78;
+      text-transform: uppercase;
+      color: #ff0a68;
+      text-shadow:
+        0 1px 0 rgba(255, 112, 166, .72),
+        0 3px 0 rgba(194, 0, 75, .56),
+        0 7px 0 rgba(125, 0, 50, .18),
+        0 18px 42px rgba(255, 10, 104, .32),
+        0 44px 86px rgba(255, 10, 104, .22),
+        0 1px 0 rgba(255, 255, 255, .72);
+      animation: wordmark-breathe 9s cubic-bezier(.37, 0, .2, 1) infinite alternate;
+    }
+
+    .brand-wordmark__pure,
+    .brand-wordmark__auto {
+      color: #ff0a68;
+      -webkit-text-stroke: 1px rgba(176, 0, 68, .32);
+    }
+
+    @keyframes wordmark-breathe {
+      from {
+        opacity: .8;
+        transform: translateY(8px) scale(.985);
+        filter: blur(.24px);
+      }
+      to {
+        opacity: .96;
+        transform: translateY(-4px) scale(1.015);
+        filter: blur(0);
+      }
+    }
+
+    @media (min-width: 640px) {
+      .brand-wordmark__inner {
+        font-size: 6.2rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      #scrubSurface {
+        --wordmark-base-x: 0vw;
+        --wordmark-y: 10.5%;
+      }
+
+      .brand-wordmark__inner {
+        font-size: 8.8rem;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .brand-wordmark__inner {
+        font-size: 10.9rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .campaign-nav__meta {
+        display: none;
+      }
+
+      .campaign-copy {
+        top: 5.15rem;
+        bottom: auto;
+        grid-template-columns: 1fr;
+        gap: .95rem;
+      }
+
+      .campaign-copy h1 {
+        max-width: 8ch;
+        font-size: clamp(3.25rem, 16vw, 4.6rem);
+      }
+
+      .campaign-copy__details {
+        justify-self: start;
+        max-width: 18rem;
+        text-align: left;
+      }
+
+      .campaign-copy__details p {
+        display: none;
+      }
+
+      .campaign-actions {
+        justify-content: flex-start;
+        margin-top: 0;
+      }
+
+      .campaign-button {
+        min-height: 2.75rem;
+        padding: 0 1rem;
+      }
+
+      .campaign-button--ghost {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .brand-wordmark,
+      .brand-wordmark__inner {
+        animation: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen overflow-hidden text-graphite antialiased">
+  <main
+    id="scrubSurface"
+    class="group relative min-h-screen cursor-ew-resize touch-none select-none overflow-hidden px-5 pb-0 pt-6 outline-none sm:px-8 lg:px-12"
+    tabindex="0"
+    aria-label="Интерактивная сцена. Двигайте курсор по горизонтали, чтобы менять время ролика."
+  >
+    <div
+      class="pointer-events-none absolute -inset-24 bg-cover bg-center opacity-20 blur-3xl saturate-75"
+      style="background-image: url('../assets/posters/interactive-scrub-poster-60.jpg');"
+    ></div>
+    <div class="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 group-focus:opacity-100">
+      <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-white/0"></div>
+      <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white/75 to-white/0"></div>
+    </div>
+
+    <section class="relative z-10 mx-auto flex min-h-[calc(100vh-1.5rem)] w-full max-w-[96rem] flex-col">
+      <nav class="campaign-nav" aria-label="Основная навигация">
+        <a class="campaign-nav__brand" href="https://github.com/zgnme/pureautolike">PureAutoLike</a>
+        <div class="campaign-nav__meta" aria-hidden="true">
+          <span>Pure Web</span>
+          <span>Auto Like</span>
+          <span>Beta motion</span>
+        </div>
+      </nav>
+
+      <header class="campaign-copy">
+        <div>
+          <h1>Не жми. Веди.</h1>
+        </div>
+        <div class="campaign-copy__details">
+          <p>
+            PureAutoLike берёт повторяющиеся лайки на себя, оставляя тебе только события, которые реально требуют внимания.
+          </p>
+          <div class="campaign-actions">
+            <a
+              class="campaign-button campaign-button--primary focus-visible:outline focus-visible:outline-4 focus-visible:outline-pure/25"
+              href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"
+            >
+              Установить beta
+            </a>
+            <a
+              class="campaign-button campaign-button--ghost focus-visible:outline focus-visible:outline-4 focus-visible:outline-pure/20"
+              href="https://github.com/zgnme/pureautolike"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div class="relative isolate flex flex-1 items-end justify-center pt-3 sm:absolute sm:inset-x-0 sm:bottom-0 sm:top-0 sm:pt-0">
+        <div class="brand-wordmark" aria-hidden="true">
+          <div class="brand-wordmark__inner">
+            <span class="brand-wordmark__pure">PURE</span><span class="brand-wordmark__auto">AUTOLIKE</span>
+          </div>
+        </div>
+        <video
+          id="scrubVideo"
+          class="pointer-events-none relative z-20 block h-auto max-h-[calc(100vh-19.125rem)] w-auto max-w-[112vw] object-contain sm:max-h-[calc(100vh-5.5rem)] sm:max-w-[92vw] lg:max-h-[calc(100vh-6rem)] lg:max-w-[88vw] xl:max-h-[calc(100vh-5.25rem)]"
+          poster="../assets/posters/interactive-scrub-greenscreen-poster-1440-clean.png?v=pages1"
+          preload="auto"
+          muted
+          playsinline
+          width="1440"
+          height="2560"
+        >
+        </video>
+      </div>
+
+      <div id="progressBar" hidden aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <script>
+    const surface = document.getElementById('scrubSurface');
+    const video = document.getElementById('scrubVideo');
+    const progressBar = document.getElementById('progressBar');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SEEK_EPSILON = 1 / 180;
+    const FOLLOW_STIFFNESS = 5.6;
+    const FOLLOW_DAMPING = 0.9;
+    const MAX_FOLLOW_SPEED_RATIO = 0.062;
+    const SNAP_DISTANCE = 1 / 360;
+    const VIDEO_SOURCES = {
+      safariAlpha: {
+        src: '../assets/videos/interactive-scrub-greenscreen-cutout-1440-clean-pages-hevc.mov?v=pages1',
+        type: 'video/mp4; codecs="hvc1"'
+      },
+      webmAlpha: {
+        src: '../assets/videos/interactive-scrub-greenscreen-cutout-1080-clean-pages.webm?v=pages1',
+        type: 'video/webm; codecs="vp9"'
+      },
+      fallback: {
+        src: '../assets/videos/interactive-scrub-demo-interpolated-60.mp4',
+        type: 'video/mp4'
+      }
+    };
+
+    let duration = 0;
+    let targetTime = 0;
+    let smoothTime = 0;
+    let scrubVelocity = 0;
+    let isActive = false;
+    let rafId = 0;
+    let lastFrameTime = 0;
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function setTargetFromClientX(clientX) {
+      if (!duration) return;
+      const rect = surface.getBoundingClientRect();
+      const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
+      targetTime = ratio * duration;
+      surface.style.setProperty('--wordmark-shift', `${(ratio - 0.5) * 48}px`);
+      surface.style.setProperty('--wordmark-tilt', `${(ratio - 0.5) * 1.4}deg`);
+      ensureScrubLoop();
+    }
+
+    function paintProgress() {
+      const ratio = duration ? clamp(smoothTime / duration, 0, 1) : 0;
+      progressBar.style.width = `${ratio * 100}%`;
+    }
+
+    function isSafariBrowser() {
+      const ua = navigator.userAgent;
+      return /Safari/i.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|Android/i.test(ua);
+    }
+
+    function setVideoSource(sourceKey) {
+      const sourceConfig = VIDEO_SOURCES[sourceKey];
+      video.dataset.activeSource = sourceKey;
+      video.classList.toggle('is-fallback-video', sourceKey === 'fallback');
+      video.textContent = '';
+
+      const source = document.createElement('source');
+      source.src = sourceConfig.src;
+      source.type = sourceConfig.type;
+      video.append(source);
+      video.load();
+    }
+
+    function selectInitialVideoSource() {
+      setVideoSource(isSafariBrowser() ? 'safariAlpha' : 'webmAlpha');
+    }
+
+    function switchToFallbackSource() {
+      if (video.dataset.activeSource !== 'fallback') {
+        setVideoSource('fallback');
+      }
+    }
+
+    function stopScrubLoop() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      lastFrameTime = 0;
+    }
+
+    function startScrubLoop() {
+      if (document.hidden) return;
+      stopScrubLoop();
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function ensureScrubLoop() {
+      if (document.hidden) return;
+      const now = performance.now();
+      if (!rafId || (lastFrameTime && now - lastFrameTime > 250)) {
+        startScrubLoop();
+      }
+    }
+
+    function restoreScrubState() {
+      if (document.hidden) return;
+      const restoredDuration = Number.isFinite(video.duration) ? video.duration : duration;
+      duration = restoredDuration || duration;
+
+      if (duration) {
+        targetTime = clamp(targetTime, 0, duration);
+        smoothTime = clamp(smoothTime || targetTime || duration * 0.5, 0, duration);
+        scrubVelocity = 0;
+        video.pause();
+
+        if (video.readyState >= 1 && Math.abs(video.currentTime - smoothTime) > SEEK_EPSILON) {
+          video.currentTime = smoothTime;
+        }
+        paintProgress();
+      }
+
+      startScrubLoop();
+    }
+
+    function tick(now = performance.now()) {
+      if (!lastFrameTime) lastFrameTime = now;
+      const deltaSeconds = clamp((now - lastFrameTime) / 1000, 1 / 120, 1 / 30);
+      lastFrameTime = now;
+
+      if (duration) {
+        if (prefersReducedMotion) {
+          smoothTime = targetTime;
+          scrubVelocity = 0;
+        } else {
+          const distance = targetTime - smoothTime;
+          const maxSpeed = duration * MAX_FOLLOW_SPEED_RATIO;
+
+          scrubVelocity += distance * FOLLOW_STIFFNESS * deltaSeconds;
+          scrubVelocity *= Math.pow(FOLLOW_DAMPING, deltaSeconds * 60);
+          scrubVelocity = clamp(scrubVelocity, -maxSpeed, maxSpeed);
+
+          if (Math.abs(distance) < SNAP_DISTANCE && Math.abs(scrubVelocity) < SNAP_DISTANCE) {
+            smoothTime = targetTime;
+            scrubVelocity = 0;
+          } else {
+            smoothTime += scrubVelocity * deltaSeconds;
+          }
+        }
+
+        const nextTime = clamp(smoothTime, 0, duration);
+        if (Math.abs(video.currentTime - nextTime) > SEEK_EPSILON) {
+          video.currentTime = nextTime;
+        }
+        paintProgress();
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function primeVideo() {
+      duration = Number.isFinite(video.duration) ? video.duration : 0;
+      video.classList.toggle('is-fallback-video', video.dataset.activeSource === 'fallback');
+      targetTime = duration * 0.5;
+      smoothTime = targetTime;
+      scrubVelocity = 0;
+      lastFrameTime = 0;
+      surface.style.setProperty('--wordmark-shift', '0px');
+      surface.style.setProperty('--wordmark-tilt', '0deg');
+      video.pause();
+      video.currentTime = smoothTime;
+      paintProgress();
+      startScrubLoop();
+    }
+
+    video.addEventListener('loadedmetadata', primeVideo);
+    video.addEventListener('canplay', () => video.pause());
+    video.addEventListener('error', switchToFallbackSource);
+
+    surface.addEventListener('pointerenter', event => {
+      isActive = true;
+      setTargetFromClientX(event.clientX);
+    });
+
+    surface.addEventListener('pointermove', event => {
+      if (event.pointerType === 'touch' || isActive || event.buttons) {
+        setTargetFromClientX(event.clientX);
+      }
+    });
+
+    surface.addEventListener('pointerdown', event => {
+      isActive = true;
+      surface.setPointerCapture?.(event.pointerId);
+      setTargetFromClientX(event.clientX);
+    });
+
+    surface.addEventListener('pointerup', event => {
+      isActive = false;
+      surface.releasePointerCapture?.(event.pointerId);
+    });
+
+    surface.addEventListener('pointerleave', () => {
+      isActive = false;
+    });
+
+    surface.addEventListener('keydown', event => {
+      if (!duration) return;
+      const step = duration / 24;
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        targetTime = clamp(targetTime - step, 0, duration);
+        ensureScrubLoop();
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        targetTime = clamp(targetTime + step, 0, duration);
+        ensureScrubLoop();
+      }
+      if (event.key === 'Home') {
+        event.preventDefault();
+        targetTime = 0;
+        ensureScrubLoop();
+      }
+      if (event.key === 'End') {
+        event.preventDefault();
+        targetTime = duration;
+        ensureScrubLoop();
+      }
+    });
+
+    window.addEventListener('pageshow', restoreScrubState);
+    window.addEventListener('focus', restoreScrubState);
+    window.addEventListener('pagehide', stopScrubLoop);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopScrubLoop();
+      } else {
+        restoreScrubState();
+      }
+    });
+
+    selectInitialVideoSource();
+  </script>
+</body>
+</html>
