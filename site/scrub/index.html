@@ -1,35 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PureAutoLike Motion Hero | Автолайк Pure Web</title>
   <meta name="description" content="Интерактивный hero для PureAutoLike: автолайк в Pure Web, Telegram-события и меньше ручной рутины в ленте.">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            ink: '#171214',
-            pure: '#ff0a68',
-            cream: '#fff0de',
-            studio: '#f2f4f3',
-            graphite: '#171214'
-          },
-          fontFamily: {
-            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif']
-          }
-        }
-      }
-    };
-  </script>
+  <link rel="canonical" href="https://zgnme.github.io/pureautolike/scrub/">
+  <meta name="theme-color" content="#d8dce0">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="PureAutoLike — Не жми. Веди.">
+  <meta property="og:description" content="Автолайк для Pure Web в интерактивной motion-кампании PureAutoLike.">
+  <meta property="og:url" content="https://zgnme.github.io/pureautolike/scrub/">
+  <meta property="og:image" content="https://zgnme.github.io/pureautolike/assets/posters/interactive-scrub-greenscreen-poster-1440-clean.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PureAutoLike — Не жми. Веди.">
+  <meta name="twitter:description" content="Автолайк для Pure Web в интерактивной motion-кампании PureAutoLike.">
+  <meta name="twitter:image" content="https://zgnme.github.io/pureautolike/assets/posters/interactive-scrub-greenscreen-poster-1440-clean.png">
   <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     html {
       background: #d8dce0;
     }
 
     body {
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      color: #171214;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
       background:
         radial-gradient(ellipse 48rem 54rem at 50% 56%, rgba(241,244,245,0.98) 0%, rgba(232,237,239,0.96) 42%, rgba(219,224,227,0.9) 72%, rgba(207,209,215,0.88) 100%),
         linear-gradient(90deg, #d8dce0 0%, #e1e6e8 28%, #dde2e4 56%, #d1d0d6 100%);
@@ -64,8 +69,76 @@
     #scrubSurface {
       --wordmark-shift: 0px;
       --wordmark-tilt: 0deg;
-      --wordmark-base-x: -8vw;
-      --wordmark-y: 52%;
+      --wordmark-base-x: 0px;
+      --wordmark-y: 13%;
+      --scrub-progress: 50%;
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      padding: 1.5rem 1.25rem 0;
+      cursor: ew-resize;
+      touch-action: pan-y pinch-zoom;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .ambient-poster {
+      position: absolute;
+      inset: -6rem;
+      pointer-events: none;
+      background-image: url('../assets/posters/interactive-scrub-poster-60.jpg');
+      background-position: center;
+      background-size: cover;
+      filter: blur(3rem) saturate(.75);
+      opacity: .16;
+    }
+
+    .surface-feedback {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    #scrubSurface:hover .surface-feedback,
+    #scrubSurface:focus-within .surface-feedback {
+      opacity: 1;
+    }
+
+    .surface-feedback__top,
+    .surface-feedback__bottom {
+      position: absolute;
+      right: 0;
+      left: 0;
+    }
+
+    .surface-feedback__top {
+      top: 0;
+      height: 6rem;
+      background: linear-gradient(180deg, rgba(255,255,255,.7), transparent);
+    }
+
+    .surface-feedback__bottom {
+      bottom: 0;
+      height: 9rem;
+      background: linear-gradient(0deg, rgba(255,255,255,.75), transparent);
+    }
+
+    .campaign-stage {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      width: 100%;
+      max-width: 96rem;
+      min-height: calc(100vh - 1.5rem);
+      margin: 0 auto;
+      flex-direction: column;
     }
 
     .campaign-nav {
@@ -87,6 +160,13 @@
       font-size: clamp(1.05rem, 1.5vw, 1.45rem);
       font-weight: 950;
       line-height: .9;
+    }
+
+    .campaign-nav__brand:focus-visible,
+    .campaign-button:focus-visible,
+    .scrub-control:focus-visible {
+      outline: 3px solid rgba(255, 10, 104, .58);
+      outline-offset: 4px;
     }
 
     .campaign-nav__meta {
@@ -114,12 +194,21 @@
     }
 
     .campaign-copy h1 {
+      margin: 0;
       max-width: 9ch;
       font-size: clamp(4.5rem, 8.4vw, 8.9rem);
       font-weight: 950;
       letter-spacing: 0;
       line-height: .78;
       text-transform: uppercase;
+    }
+
+    .campaign-product-line {
+      margin: .85rem 0 0;
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: rgba(23,18,20,.58);
     }
 
     .campaign-copy__details {
@@ -242,7 +331,9 @@
     @media (min-width: 1024px) {
       #scrubSurface {
         --wordmark-base-x: 0vw;
-        --wordmark-y: 10.5%;
+        --wordmark-y: 7.5%;
+        padding-right: 3rem;
+        padding-left: 3rem;
       }
 
       .brand-wordmark__inner {
@@ -257,20 +348,41 @@
     }
 
     @media (max-width: 767px) {
+      .campaign-nav {
+        top: 1.1rem;
+        right: 1.2rem;
+        left: 1.2rem;
+      }
+
       .campaign-nav__meta {
+        gap: 0;
+        font-size: .64rem;
+      }
+
+      .campaign-nav__meta span:not(:first-child) {
         display: none;
       }
 
       .campaign-copy {
-        top: 5.15rem;
-        bottom: auto;
-        grid-template-columns: 1fr;
-        gap: .95rem;
+        right: 1.2rem;
+        bottom: 1rem;
+        left: 1.2rem;
+        display: flex;
+        grid-template-columns: none;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1rem;
       }
 
       .campaign-copy h1 {
-        max-width: 8ch;
-        font-size: clamp(3.25rem, 16vw, 4.6rem);
+        max-width: 6ch;
+        font-size: clamp(2.35rem, 11vw, 3.2rem);
+        line-height: .82;
+      }
+
+      .campaign-product-line {
+        margin-top: .55rem;
+        font-size: .62rem;
       }
 
       .campaign-copy__details {
@@ -284,7 +396,7 @@
       }
 
       .campaign-actions {
-        justify-content: flex-start;
+        justify-content: flex-end;
         margin-top: 0;
       }
 
@@ -296,6 +408,130 @@
       .campaign-button--ghost {
         display: none;
       }
+
+      .brand-wordmark__inner {
+        font-size: clamp(2.35rem, 11.5vw, 3.15rem);
+      }
+    }
+
+    .media-stage {
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex: 1;
+      align-items: flex-end;
+      justify-content: center;
+      padding-top: .75rem;
+    }
+
+    .scrub-video {
+      position: relative;
+      z-index: 20;
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 128vw;
+      max-height: calc(100vh - 3.25rem);
+      object-fit: contain;
+      pointer-events: none;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .scrub-control {
+      position: absolute;
+      top: 50%;
+      right: clamp(1.2rem, 5vw, 5rem);
+      bottom: auto;
+      z-index: 45;
+      width: clamp(5.5rem, 8vw, 8rem);
+      height: 2.75rem;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      cursor: ew-resize;
+      transform: translateY(-50%);
+    }
+
+    .scrub-control::before,
+    .scrub-control::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .scrub-control::before {
+      right: 0;
+      left: 0;
+      height: 2px;
+      background: rgba(23,18,20,.2);
+    }
+
+    .scrub-control::after {
+      left: var(--scrub-progress);
+      width: .55rem;
+      height: .55rem;
+      border: 2px solid #ff0a68;
+      border-radius: 50%;
+      background: #f2f4f3;
+      box-shadow: 0 0 0 4px rgba(255,10,104,.12);
+      transform: translate(-50%, -50%);
+      transition: box-shadow 180ms ease;
+    }
+
+    .scrub-control:hover::after,
+    .scrub-control:focus-visible::after {
+      box-shadow: 0 0 0 7px rgba(255,10,104,.18);
+    }
+
+    @media (min-width: 640px) {
+      .media-stage {
+        position: absolute;
+        inset: 0;
+        padding-top: 0;
+      }
+
+      .scrub-video {
+        max-width: 92vw;
+        max-height: calc(100vh - 5.5rem);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .scrub-video {
+        max-width: 88vw;
+        max-height: calc(100vh - 6rem);
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .scrub-video {
+        max-height: calc(100vh - 5.25rem);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .scrub-control {
+        top: 4.45rem;
+        right: 1.2rem;
+        bottom: auto;
+        width: 5.4rem;
+        opacity: 0;
+        transform: none;
+        transition: opacity 180ms ease;
+      }
+
+      #scrubSurface.is-scrubbing .scrub-control,
+      .scrub-control:focus-visible {
+        opacity: 1;
+      }
+
+      .campaign-product-line {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -304,30 +540,26 @@
         animation: none;
         transition: none;
       }
+
+      .scrub-control::after {
+        transition: none;
+      }
     }
   </style>
 </head>
-<body class="min-h-screen overflow-hidden text-graphite antialiased">
-  <main
-    id="scrubSurface"
-    class="group relative min-h-screen cursor-ew-resize touch-none select-none overflow-hidden px-5 pb-0 pt-6 outline-none sm:px-8 lg:px-12"
-    tabindex="0"
-    aria-label="Интерактивная сцена. Двигайте курсор по горизонтали, чтобы менять время ролика."
-  >
-    <div
-      class="pointer-events-none absolute -inset-24 bg-cover bg-center opacity-20 blur-3xl saturate-75"
-      style="background-image: url('../assets/posters/interactive-scrub-poster-60.jpg');"
-    ></div>
-    <div class="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 group-focus:opacity-100">
-      <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-white/0"></div>
-      <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white/75 to-white/0"></div>
+<body>
+  <main id="scrubSurface" aria-label="Интерактивная кампания PureAutoLike">
+    <div class="ambient-poster"></div>
+    <div class="surface-feedback" aria-hidden="true">
+      <div class="surface-feedback__top"></div>
+      <div class="surface-feedback__bottom"></div>
     </div>
 
-    <section class="relative z-10 mx-auto flex min-h-[calc(100vh-1.5rem)] w-full max-w-[96rem] flex-col">
+    <section class="campaign-stage">
       <nav class="campaign-nav" aria-label="Основная навигация">
-        <a class="campaign-nav__brand" href="https://github.com/zgnme/pureautolike">PureAutoLike</a>
+        <a class="campaign-nav__brand" href="../">PureAutoLike</a>
         <div class="campaign-nav__meta" aria-hidden="true">
-          <span>Pure Web</span>
+          <span>Автолайк для Pure Web</span>
           <span>Auto Like</span>
           <span>Beta motion</span>
         </div>
@@ -336,6 +568,7 @@
       <header class="campaign-copy">
         <div>
           <h1>Не жми. Веди.</h1>
+          <p class="campaign-product-line">Автолайк для Pure Web</p>
         </div>
         <div class="campaign-copy__details">
           <p>
@@ -343,13 +576,13 @@
           </p>
           <div class="campaign-actions">
             <a
-              class="campaign-button campaign-button--primary focus-visible:outline focus-visible:outline-4 focus-visible:outline-pure/25"
+              class="campaign-button campaign-button--primary"
               href="https://chromewebstore.google.com/detail/pureautolike/abamkpcdpihjpaomdpaklhifpfbobgmm"
             >
-              Установить beta
+              Установить в Chrome
             </a>
             <a
-              class="campaign-button campaign-button--ghost focus-visible:outline focus-visible:outline-4 focus-visible:outline-pure/20"
+              class="campaign-button campaign-button--ghost"
               href="https://github.com/zgnme/pureautolike"
             >
               GitHub
@@ -358,7 +591,7 @@
         </div>
       </header>
 
-      <div class="relative isolate flex flex-1 items-end justify-center pt-3 sm:absolute sm:inset-x-0 sm:bottom-0 sm:top-0 sm:pt-0">
+      <div class="media-stage">
         <div class="brand-wordmark" aria-hidden="true">
           <div class="brand-wordmark__inner">
             <span class="brand-wordmark__pure">PURE</span><span class="brand-wordmark__auto">AUTOLIKE</span>
@@ -366,44 +599,77 @@
         </div>
         <video
           id="scrubVideo"
-          class="pointer-events-none relative z-20 block h-auto max-h-[calc(100vh-19.125rem)] w-auto max-w-[112vw] object-contain sm:max-h-[calc(100vh-5.5rem)] sm:max-w-[92vw] lg:max-h-[calc(100vh-6rem)] lg:max-w-[88vw] xl:max-h-[calc(100vh-5.25rem)]"
-          poster="../assets/posters/interactive-scrub-greenscreen-poster-1440-clean.png?v=pages1"
+          class="scrub-video"
+          poster="../assets/posters/interactive-scrub-poster-desktop-900.png?v=pages2"
           preload="auto"
           muted
           playsinline
-          width="1440"
-          height="2560"
+          width="900"
+          height="1600"
         >
+          Ваш браузер не поддерживает интерактивное видео.
         </video>
       </div>
 
-      <div id="progressBar" hidden aria-hidden="true"></div>
+      <div
+        id="scrubControl"
+        class="scrub-control"
+        role="slider"
+        tabindex="0"
+        aria-label="Положение интерактивного видео"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="50"
+      ></div>
     </section>
   </main>
 
   <script>
     const surface = document.getElementById('scrubSurface');
     const video = document.getElementById('scrubVideo');
-    const progressBar = document.getElementById('progressBar');
+    const scrubControl = document.getElementById('scrubControl');
+    const compactMedia = window.matchMedia('(max-width: 767px)');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const SEEK_EPSILON = 1 / 180;
-    const FOLLOW_STIFFNESS = 5.6;
-    const FOLLOW_DAMPING = 0.9;
-    const MAX_FOLLOW_SPEED_RATIO = 0.062;
+    const FOLLOW_STIFFNESS = 3.6;
+    const FOLLOW_DAMPING = 0.88;
+    const MAX_FOLLOW_SPEED_RATIO = 0.04;
     const SNAP_DISTANCE = 1 / 360;
     const VIDEO_SOURCES = {
       safariAlpha: {
-        src: '../assets/videos/interactive-scrub-greenscreen-cutout-1440-clean-pages-hevc.mov?v=pages1',
-        type: 'video/mp4; codecs="hvc1"'
+        desktop: {
+          src: '../assets/videos/interactive-scrub-cutout-desktop-960-hevc.mov?v=pages2',
+          type: 'video/mp4; codecs="hvc1"'
+        },
+        mobile: {
+          src: '../assets/videos/interactive-scrub-cutout-mobile-600-hevc.mov?v=pages2',
+          type: 'video/mp4; codecs="hvc1"'
+        }
       },
       webmAlpha: {
-        src: '../assets/videos/interactive-scrub-greenscreen-cutout-1080-clean-pages.webm?v=pages1',
-        type: 'video/webm; codecs="vp9"'
+        desktop: {
+          src: '../assets/videos/interactive-scrub-cutout-desktop-900.webm?v=pages2',
+          type: 'video/webm; codecs="vp9"'
+        },
+        mobile: {
+          src: '../assets/videos/interactive-scrub-cutout-mobile-540.webm?v=pages2',
+          type: 'video/webm; codecs="vp9"'
+        }
       },
       fallback: {
-        src: '../assets/videos/interactive-scrub-demo-interpolated-60.mp4',
-        type: 'video/mp4'
+        desktop: {
+          src: '../assets/videos/interactive-scrub-demo-interpolated-60.mp4',
+          type: 'video/mp4'
+        },
+        mobile: {
+          src: '../assets/videos/interactive-scrub-demo-interpolated-60.mp4',
+          type: 'video/mp4'
+        }
       }
+    };
+    const VIDEO_POSTERS = {
+      desktop: '../assets/posters/interactive-scrub-poster-desktop-900.png?v=pages2',
+      mobile: '../assets/posters/interactive-scrub-poster-mobile-540.png?v=pages2'
     };
 
     let duration = 0;
@@ -430,7 +696,9 @@
 
     function paintProgress() {
       const ratio = duration ? clamp(smoothTime / duration, 0, 1) : 0;
-      progressBar.style.width = `${ratio * 100}%`;
+      const percent = ratio * 100;
+      surface.style.setProperty('--scrub-progress', `${percent}%`);
+      scrubControl.setAttribute('aria-valuenow', String(Math.round(percent)));
     }
 
     function isSafariBrowser() {
@@ -439,10 +707,13 @@
     }
 
     function setVideoSource(sourceKey) {
-      const sourceConfig = VIDEO_SOURCES[sourceKey];
+      const sizeKey = compactMedia.matches ? 'mobile' : 'desktop';
+      const sourceConfig = VIDEO_SOURCES[sourceKey][sizeKey];
       video.dataset.activeSource = sourceKey;
+      video.dataset.activeSize = sizeKey;
       video.classList.toggle('is-fallback-video', sourceKey === 'fallback');
       video.textContent = '';
+      video.poster = VIDEO_POSTERS[sizeKey];
 
       const source = document.createElement('source');
       source.src = sourceConfig.src;
@@ -529,7 +800,7 @@
         }
 
         const nextTime = clamp(smoothTime, 0, duration);
-        if (Math.abs(video.currentTime - nextTime) > SEEK_EPSILON) {
+        if (!video.seeking && Math.abs(video.currentTime - nextTime) > SEEK_EPSILON) {
           video.currentTime = nextTime;
         }
         paintProgress();
@@ -562,27 +833,35 @@
     });
 
     surface.addEventListener('pointermove', event => {
-      if (event.pointerType === 'touch' || isActive || event.buttons) {
+      if (event.pointerType !== 'touch' || isActive || event.buttons) {
         setTargetFromClientX(event.clientX);
       }
     });
 
     surface.addEventListener('pointerdown', event => {
       isActive = true;
+      surface.classList.add('is-scrubbing');
       surface.setPointerCapture?.(event.pointerId);
       setTargetFromClientX(event.clientX);
     });
 
     surface.addEventListener('pointerup', event => {
       isActive = false;
+      surface.classList.remove('is-scrubbing');
       surface.releasePointerCapture?.(event.pointerId);
     });
 
     surface.addEventListener('pointerleave', () => {
       isActive = false;
+      surface.classList.remove('is-scrubbing');
     });
 
-    surface.addEventListener('keydown', event => {
+    surface.addEventListener('pointercancel', () => {
+      isActive = false;
+      surface.classList.remove('is-scrubbing');
+    });
+
+    scrubControl.addEventListener('keydown', event => {
       if (!duration) return;
       const step = duration / 24;
       if (event.key === 'ArrowLeft') {
@@ -616,6 +895,13 @@
         stopScrubLoop();
       } else {
         restoreScrubState();
+      }
+    });
+
+    compactMedia.addEventListener?.('change', () => {
+      const expectedSize = compactMedia.matches ? 'mobile' : 'desktop';
+      if (video.dataset.activeSize !== expectedSize) {
+        selectInitialVideoSource();
       }
     });
 
