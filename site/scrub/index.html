@@ -61,17 +61,9 @@
         radial-gradient(ellipse 54rem 12rem at 50% 100%, rgba(23,18,20,0.12), transparent 72%);
     }
 
-    #scrubVideo.is-fallback-video {
-      -webkit-mask-image: radial-gradient(ellipse 43% 66% at 50% 57%, #000 0%, #000 58%, rgba(0,0,0,.72) 73%, transparent 100%);
-      mask-image: radial-gradient(ellipse 43% 66% at 50% 57%, #000 0%, #000 58%, rgba(0,0,0,.72) 73%, transparent 100%);
-    }
-
     #scrubSurface {
-      --wordmark-shift: 0px;
-      --wordmark-tilt: 0deg;
       --wordmark-base-x: 0px;
       --wordmark-y: 13%;
-      --scrub-progress: 50%;
       position: relative;
       min-height: 100vh;
       overflow: hidden;
@@ -85,17 +77,6 @@
     a {
       color: inherit;
       text-decoration: none;
-    }
-
-    .ambient-poster {
-      position: absolute;
-      inset: -6rem;
-      pointer-events: none;
-      background-image: url('../assets/posters/interactive-scrub-poster-60.jpg');
-      background-position: center;
-      background-size: cover;
-      filter: blur(3rem) saturate(.75);
-      opacity: .16;
     }
 
     .surface-feedback {
@@ -272,6 +253,8 @@
     }
 
     .brand-wordmark {
+      --wordmark-shift: 0px;
+      --wordmark-tilt: 0deg;
       position: absolute;
       left: 50%;
       top: var(--wordmark-y);
@@ -313,12 +296,10 @@
       from {
         opacity: .8;
         transform: translateY(8px) scale(.985);
-        filter: blur(.24px);
       }
       to {
         opacity: .96;
         transform: translateY(-4px) scale(1.015);
-        filter: blur(0);
       }
     }
 
@@ -441,6 +422,7 @@
     }
 
     .scrub-control {
+      --scrub-progress: 50%;
       position: absolute;
       top: 50%;
       right: clamp(1.2rem, 5vw, 5rem);
@@ -549,7 +531,6 @@
 </head>
 <body>
   <main id="scrubSurface" aria-label="Интерактивная кампания PureAutoLike">
-    <div class="ambient-poster"></div>
     <div class="surface-feedback" aria-hidden="true">
       <div class="surface-feedback__top"></div>
       <div class="surface-feedback__bottom"></div>
@@ -601,7 +582,7 @@
           id="scrubVideo"
           class="scrub-video"
           poster="../assets/posters/interactive-scrub-poster-desktop-900.png?v=pages2"
-          preload="auto"
+          preload="metadata"
           muted
           playsinline
           width="900"
@@ -628,42 +609,32 @@
     const surface = document.getElementById('scrubSurface');
     const video = document.getElementById('scrubVideo');
     const scrubControl = document.getElementById('scrubControl');
+    const wordmark = document.querySelector('.brand-wordmark');
     const compactMedia = window.matchMedia('(max-width: 767px)');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const SEEK_EPSILON = 1 / 180;
-    const FOLLOW_STIFFNESS = 3.6;
-    const FOLLOW_DAMPING = 0.88;
-    const MAX_FOLLOW_SPEED_RATIO = 0.04;
-    const SNAP_DISTANCE = 1 / 360;
+    const SEEK_EPSILON = 1 / 60;
+    const FOLLOW_RESPONSE = 9;
+    const MAX_FOLLOW_SPEED_RATIO = 0.5;
+    const SNAP_DISTANCE = 1 / 240;
     const VIDEO_SOURCES = {
       safariAlpha: {
         desktop: {
-          src: '../assets/videos/interactive-scrub-cutout-desktop-960-hevc.mov?v=pages2',
+          src: '../assets/videos/interactive-scrub-cutout-desktop-fast-720-hevc.mov?v=pages3',
           type: 'video/mp4; codecs="hvc1"'
         },
         mobile: {
-          src: '../assets/videos/interactive-scrub-cutout-mobile-600-hevc.mov?v=pages2',
+          src: '../assets/videos/interactive-scrub-cutout-mobile-fast-540-hevc.mov?v=pages3',
           type: 'video/mp4; codecs="hvc1"'
         }
       },
       webmAlpha: {
         desktop: {
-          src: '../assets/videos/interactive-scrub-cutout-desktop-900.webm?v=pages2',
+          src: '../assets/videos/interactive-scrub-cutout-desktop-fast-720.webm?v=pages3',
           type: 'video/webm; codecs="vp9"'
         },
         mobile: {
-          src: '../assets/videos/interactive-scrub-cutout-mobile-540.webm?v=pages2',
+          src: '../assets/videos/interactive-scrub-cutout-mobile-fast-540.webm?v=pages3',
           type: 'video/webm; codecs="vp9"'
-        }
-      },
-      fallback: {
-        desktop: {
-          src: '../assets/videos/interactive-scrub-demo-interpolated-60.mp4',
-          type: 'video/mp4'
-        },
-        mobile: {
-          src: '../assets/videos/interactive-scrub-demo-interpolated-60.mp4',
-          type: 'video/mp4'
         }
       }
     };
@@ -675,8 +646,9 @@
     let duration = 0;
     let targetTime = 0;
     let smoothTime = 0;
-    let scrubVelocity = 0;
     let isActive = false;
+    let hasInteracted = false;
+    let lastPointerX = null;
     let rafId = 0;
     let lastFrameTime = 0;
 
@@ -685,33 +657,45 @@
     }
 
     function setTargetFromClientX(clientX) {
+      hasInteracted = true;
       if (!duration) return;
       const rect = surface.getBoundingClientRect();
       const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
       targetTime = ratio * duration;
-      surface.style.setProperty('--wordmark-shift', `${(ratio - 0.5) * 48}px`);
-      surface.style.setProperty('--wordmark-tilt', `${(ratio - 0.5) * 1.4}deg`);
+      wordmark.style.setProperty('--wordmark-shift', `${(ratio - 0.5) * 48}px`);
+      wordmark.style.setProperty('--wordmark-tilt', `${(ratio - 0.5) * 1.4}deg`);
       ensureScrubLoop();
     }
 
     function paintProgress() {
       const ratio = duration ? clamp(smoothTime / duration, 0, 1) : 0;
       const percent = ratio * 100;
-      surface.style.setProperty('--scrub-progress', `${percent}%`);
-      scrubControl.setAttribute('aria-valuenow', String(Math.round(percent)));
+      scrubControl.style.setProperty('--scrub-progress', `${percent}%`);
+      const roundedPercent = String(Math.round(percent));
+      if (scrubControl.getAttribute('aria-valuenow') !== roundedPercent) {
+        scrubControl.setAttribute('aria-valuenow', roundedPercent);
+      }
     }
 
-    function isSafariBrowser() {
+    function prefersAppleAlphaVideo() {
       const ua = navigator.userAgent;
-      return /Safari/i.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|Android/i.test(ua);
+      const isIOS = /iPad|iPhone|iPod/i.test(ua)
+        || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const isDesktopSafari = /Safari/i.test(ua)
+        && !/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|Android/i.test(ua);
+      return isIOS || isDesktopSafari;
     }
 
     function setVideoSource(sourceKey) {
       const sizeKey = compactMedia.matches ? 'mobile' : 'desktop';
       const sourceConfig = VIDEO_SOURCES[sourceKey][sizeKey];
+      stopScrubLoop();
+      duration = 0;
+      targetTime = 0;
+      smoothTime = 0;
       video.dataset.activeSource = sourceKey;
       video.dataset.activeSize = sizeKey;
-      video.classList.toggle('is-fallback-video', sourceKey === 'fallback');
+      delete video.dataset.mediaError;
       video.textContent = '';
       video.poster = VIDEO_POSTERS[sizeKey];
 
@@ -723,13 +707,13 @@
     }
 
     function selectInitialVideoSource() {
-      setVideoSource(isSafariBrowser() ? 'safariAlpha' : 'webmAlpha');
+      setVideoSource(prefersAppleAlphaVideo() ? 'safariAlpha' : 'webmAlpha');
     }
 
-    function switchToFallbackSource() {
-      if (video.dataset.activeSource !== 'fallback') {
-        setVideoSource('fallback');
-      }
+    function handleVideoError() {
+      stopScrubLoop();
+      duration = 0;
+      video.dataset.mediaError = 'true';
     }
 
     function stopScrubLoop() {
@@ -742,16 +726,14 @@
 
     function startScrubLoop() {
       if (document.hidden) return;
-      stopScrubLoop();
-      rafId = requestAnimationFrame(tick);
+      if (!rafId && !video.seeking) {
+        lastFrameTime = performance.now();
+        rafId = requestAnimationFrame(tick);
+      }
     }
 
     function ensureScrubLoop() {
-      if (document.hidden) return;
-      const now = performance.now();
-      if (!rafId || (lastFrameTime && now - lastFrameTime > 250)) {
-        startScrubLoop();
-      }
+      startScrubLoop();
     }
 
     function restoreScrubState() {
@@ -762,84 +744,91 @@
       if (duration) {
         targetTime = clamp(targetTime, 0, duration);
         smoothTime = clamp(smoothTime || targetTime || duration * 0.5, 0, duration);
-        scrubVelocity = 0;
         video.pause();
 
-        if (video.readyState >= 1 && Math.abs(video.currentTime - smoothTime) > SEEK_EPSILON) {
+        if (hasInteracted && video.readyState >= 1 && Math.abs(video.currentTime - smoothTime) > SEEK_EPSILON) {
           video.currentTime = smoothTime;
         }
         paintProgress();
       }
 
-      startScrubLoop();
+      if (hasInteracted) ensureScrubLoop();
     }
 
     function tick(now = performance.now()) {
+      rafId = 0;
+      if (document.hidden || !duration || video.seeking) return;
+
       if (!lastFrameTime) lastFrameTime = now;
       const deltaSeconds = clamp((now - lastFrameTime) / 1000, 1 / 120, 1 / 30);
       lastFrameTime = now;
+      const distance = targetTime - smoothTime;
+      let isSettled = Math.abs(distance) < SNAP_DISTANCE;
 
-      if (duration) {
-        if (prefersReducedMotion) {
-          smoothTime = targetTime;
-          scrubVelocity = 0;
-        } else {
-          const distance = targetTime - smoothTime;
-          const maxSpeed = duration * MAX_FOLLOW_SPEED_RATIO;
-
-          scrubVelocity += distance * FOLLOW_STIFFNESS * deltaSeconds;
-          scrubVelocity *= Math.pow(FOLLOW_DAMPING, deltaSeconds * 60);
-          scrubVelocity = clamp(scrubVelocity, -maxSpeed, maxSpeed);
-
-          if (Math.abs(distance) < SNAP_DISTANCE && Math.abs(scrubVelocity) < SNAP_DISTANCE) {
-            smoothTime = targetTime;
-            scrubVelocity = 0;
-          } else {
-            smoothTime += scrubVelocity * deltaSeconds;
-          }
-        }
-
-        const nextTime = clamp(smoothTime, 0, duration);
-        if (!video.seeking && Math.abs(video.currentTime - nextTime) > SEEK_EPSILON) {
-          video.currentTime = nextTime;
-        }
-        paintProgress();
+      if (prefersReducedMotion || isSettled) {
+        smoothTime = targetTime;
+        isSettled = true;
+      } else {
+        const responseStep = distance * (1 - Math.exp(-FOLLOW_RESPONSE * deltaSeconds));
+        const maxStep = duration * MAX_FOLLOW_SPEED_RATIO * deltaSeconds;
+        smoothTime += clamp(responseStep, -maxStep, maxStep);
       }
-      rafId = requestAnimationFrame(tick);
+
+      const nextTime = clamp(smoothTime, 0, duration);
+      if (Math.abs(video.currentTime - nextTime) > SEEK_EPSILON) {
+        video.currentTime = nextTime;
+      }
+      paintProgress();
+
+      if (!isSettled && !video.seeking) {
+        rafId = requestAnimationFrame(tick);
+      } else if (isSettled) {
+        lastFrameTime = 0;
+      }
     }
 
     function primeVideo() {
       duration = Number.isFinite(video.duration) ? video.duration : 0;
-      video.classList.toggle('is-fallback-video', video.dataset.activeSource === 'fallback');
       targetTime = duration * 0.5;
       smoothTime = targetTime;
-      scrubVelocity = 0;
       lastFrameTime = 0;
-      surface.style.setProperty('--wordmark-shift', '0px');
-      surface.style.setProperty('--wordmark-tilt', '0deg');
+      wordmark.style.setProperty('--wordmark-shift', '0px');
+      wordmark.style.setProperty('--wordmark-tilt', '0deg');
       video.pause();
-      video.currentTime = smoothTime;
       paintProgress();
-      startScrubLoop();
     }
 
     video.addEventListener('loadedmetadata', primeVideo);
     video.addEventListener('canplay', () => video.pause());
-    video.addEventListener('error', switchToFallbackSource);
+    video.addEventListener('seeked', ensureScrubLoop);
+    video.addEventListener('error', handleVideoError);
 
     surface.addEventListener('pointerenter', event => {
       isActive = true;
-      setTargetFromClientX(event.clientX);
+      lastPointerX = event.clientX;
     });
 
     surface.addEventListener('pointermove', event => {
-      if (event.pointerType !== 'touch' || isActive || event.buttons) {
+      if (event.pointerType === 'touch') {
+        if (isActive || event.buttons) setTargetFromClientX(event.clientX);
+        return;
+      }
+
+      if (lastPointerX === null) {
+        lastPointerX = event.clientX;
+        return;
+      }
+
+      const pointerDelta = Math.abs(event.clientX - lastPointerX);
+      lastPointerX = event.clientX;
+      if (pointerDelta >= 0.5 || event.buttons) {
         setTargetFromClientX(event.clientX);
       }
     });
 
     surface.addEventListener('pointerdown', event => {
       isActive = true;
+      lastPointerX = event.clientX;
       surface.classList.add('is-scrubbing');
       surface.setPointerCapture?.(event.pointerId);
       setTargetFromClientX(event.clientX);
@@ -853,16 +842,19 @@
 
     surface.addEventListener('pointerleave', () => {
       isActive = false;
+      lastPointerX = null;
       surface.classList.remove('is-scrubbing');
     });
 
     surface.addEventListener('pointercancel', () => {
       isActive = false;
+      lastPointerX = null;
       surface.classList.remove('is-scrubbing');
     });
 
     scrubControl.addEventListener('keydown', event => {
       if (!duration) return;
+      hasInteracted = true;
       const step = duration / 24;
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
