@@ -13,7 +13,7 @@ command -v ffprobe >/dev/null
 command -v qt-faststart >/dev/null
 test -f "$SOURCE"
 
-KEY_FILTER='chromakey=0x10b00d:0.10:0.08,despill=green:mix=0.65:expand=0.15,format=rgba'
+KEY_FILTER='chromakey=0x10b00d:0.10:0.04,despill=green:mix=0.65:expand=0.15,format=rgba'
 MASTER="$WORK/clean-master.mov"
 
 echo 'Building clean 1080 x 1920 alpha master...'
@@ -34,12 +34,16 @@ ffmpeg -y -v error -i "$MASTER" -an -vf 'scale=540:960:flags=lanczos' \
   "$WORK/mobile.webm"
 
 echo 'Encoding HEVC alpha assets...'
-ffmpeg -y -v error -i "$MASTER" -an -vf 'scale=720:1280:flags=lanczos,format=bgra' \
+ffmpeg -y -v error -i "$MASTER" -an \
+  -filter_complex '[0:v]format=rgba,split[color][mask];[color]format=rgb24[color];[mask]alphaextract,erosion[alpha];[color][alpha]alphamerge,scale=720:1280:flags=lanczos,format=bgra[out]' \
+  -map '[out]' \
   -c:v hevc_videotoolbox -tag:v hvc1 -alpha_quality 0.85 -b:v 18M -g 6 \
   "$WORK/desktop-hevc-tail.mov"
 qt-faststart "$WORK/desktop-hevc-tail.mov" "$WORK/desktop-hevc.mov" >/dev/null
 
-ffmpeg -y -v error -i "$MASTER" -an -vf 'scale=540:960:flags=lanczos,format=bgra' \
+ffmpeg -y -v error -i "$MASTER" -an \
+  -filter_complex '[0:v]format=rgba,split[color][mask];[color]format=rgb24[color];[mask]alphaextract,erosion[alpha];[color][alpha]alphamerge,scale=540:960:flags=lanczos,format=bgra[out]' \
+  -map '[out]' \
   -c:v hevc_videotoolbox -tag:v hvc1 -alpha_quality 0.85 -b:v 11M -g 6 \
   "$WORK/mobile-hevc-tail.mov"
 qt-faststart "$WORK/mobile-hevc-tail.mov" "$WORK/mobile-hevc.mov" >/dev/null
