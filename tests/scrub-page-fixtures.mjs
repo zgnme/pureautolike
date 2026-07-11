@@ -17,5 +17,10 @@ assert.match(html, /preload="metadata"/);
 assert.match(html, /prefersAppleAlphaVideo/);
 assert.match(html, /window\.addEventListener\('pageshow', restoreScrubState\)/);
 assert.match(html, /document\.addEventListener\('visibilitychange'/);
+assert.match(html, /const editorialTitle = document\.querySelector\('\.editorial-title'\)/);
+assert.match(html, /--title-shift/);
+assert.doesNotMatch(html, /--wordmark-shift|wordmark-breathe/);
+assert.match(html, /MAX_FOLLOW_SPEED_RATIO = 0\.28/);
+assert.match(html, /video\.currentTime = smoothTime/);
 
 console.log('scrub page fixture validation passed');
