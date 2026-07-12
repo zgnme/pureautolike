@@ -53,6 +53,9 @@ ffmpeg -y -v error -ss 5 -i "$MASTER" -frames:v 1 \
   -vf 'scale=900:1600:flags=lanczos,format=rgba' "$WORK/desktop.png"
 ffmpeg -y -v error -ss 5 -i "$MASTER" -frames:v 1 \
   -vf 'scale=540:960:flags=lanczos,format=rgba' "$WORK/mobile.png"
+ffmpeg -y -v error -ss 5 -i "$MASTER" -frames:v 1 \
+  -vf 'scale=450:800:flags=lanczos,format=rgba' -compression_level 9 -pred mixed \
+  "$WORK/fast.png"
 
 echo 'Validating media...'
 for file in "$WORK/desktop.webm" "$WORK/mobile.webm" "$WORK/desktop-hevc.mov" "$WORK/mobile-hevc.mov"; do
@@ -80,5 +83,6 @@ mv "$WORK/desktop-hevc.mov" "$VIDEO_DIR/interactive-scrub-cutout-desktop-fast-72
 mv "$WORK/mobile-hevc.mov" "$VIDEO_DIR/interactive-scrub-cutout-mobile-fast-540-hevc.mov"
 mv "$WORK/desktop.png" "$POSTER_DIR/interactive-scrub-poster-desktop-900.png"
 mv "$WORK/mobile.png" "$POSTER_DIR/interactive-scrub-poster-mobile-540.png"
+mv "$WORK/fast.png" "$POSTER_DIR/interactive-scrub-poster-fast-450.png"
 
 echo 'Scrub media build complete.'

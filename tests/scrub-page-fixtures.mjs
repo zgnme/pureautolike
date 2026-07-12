@@ -22,5 +22,8 @@ assert.match(html, /--title-shift/);
 assert.doesNotMatch(html, /--wordmark-shift|wordmark-breathe/);
 assert.match(html, /MAX_FOLLOW_SPEED_RATIO = 0\.28/);
 assert.match(html, /video\.currentTime = smoothTime/);
+assert.match(html, /class="poster-frame"/);
+assert.match(html, /id="scrubPoster"/);
+assert.match(html, /is-video-ready/);
 
 console.log('scrub page fixture validation passed');

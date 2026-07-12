@@ -17,8 +17,7 @@
   <meta name="twitter:title" content="PureAutoLike — Presence Automated">
   <meta name="twitter:description" content="Автоматизация присутствия в Pure Web — последовательно, точно, без постоянного контроля.">
   <meta name="twitter:image" content="https://zgnme.github.io/pureautolike/assets/posters/interactive-scrub-poster-desktop-900.png?v=pure-presence-4">
-  <link rel="preload" as="image" href="../assets/posters/interactive-scrub-poster-desktop-900.png?v=pure-presence-4" media="(min-width: 768px)" fetchpriority="high">
-  <link rel="preload" as="image" href="../assets/posters/interactive-scrub-poster-mobile-540.png?v=pure-presence-4" media="(max-width: 767px)" fetchpriority="high">
+  <link rel="preload" as="image" href="../assets/posters/interactive-scrub-poster-fast-450.png?v=pure-presence-5" fetchpriority="high">
   <style>
     :root {
       --ink: #111113;
@@ -182,6 +181,23 @@
       pointer-events: none;
     }
 
+    .poster-frame {
+      position: absolute;
+      inset: 0;
+      z-index: 11;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 1;
+      pointer-events: none;
+      transition: opacity 120ms ease;
+    }
+
+    .media-stage.is-video-ready .poster-frame {
+      opacity: 0;
+      visibility: hidden;
+    }
+
     .contact-shadow {
       position: absolute;
       left: 50%;
@@ -196,7 +212,8 @@
       pointer-events: none;
     }
 
-    .scrub-video {
+    .scrub-video,
+    .scrub-poster {
       position: relative;
       z-index: 10;
       display: block;
@@ -353,7 +370,8 @@
         font-size: 20px;
       }
 
-      .scrub-video {
+      .scrub-video,
+      .scrub-poster {
         height: calc(100svh - 70px);
         max-width: 76vw;
       }
@@ -382,7 +400,8 @@
         font-size: 18px;
       }
 
-      .scrub-video {
+      .scrub-video,
+      .scrub-poster {
         height: calc(100svh - 76px);
         max-width: 82vw;
       }
@@ -446,7 +465,12 @@
         justify-content: flex-end;
       }
 
-      .scrub-video {
+      .poster-frame {
+        justify-content: flex-end;
+      }
+
+      .scrub-video,
+      .scrub-poster {
         height: calc(100svh - 72px);
         max-width: 118vw;
         transform: translateX(22vw) translateZ(0);
@@ -559,10 +583,21 @@
 
       <div class="media-stage">
         <div class="contact-shadow" aria-hidden="true"></div>
+        <picture class="poster-frame" aria-hidden="true">
+          <img
+            id="scrubPoster"
+            class="scrub-poster"
+            src="../assets/posters/interactive-scrub-poster-fast-450.png?v=pure-presence-5"
+            alt=""
+            width="450"
+            height="800"
+            fetchpriority="high"
+          >
+        </picture>
         <video
           id="scrubVideo"
           class="scrub-video"
-          poster="../assets/posters/interactive-scrub-poster-desktop-900.png?v=pure-presence-4"
+          poster="../assets/posters/interactive-scrub-poster-fast-450.png?v=pure-presence-5"
           preload="metadata"
           muted
           playsinline
@@ -597,7 +632,9 @@
 
   <script>
     const surface = document.getElementById('scrubSurface');
+    const mediaStage = document.querySelector('.media-stage');
     const video = document.getElementById('scrubVideo');
+    const scrubPoster = document.getElementById('scrubPoster');
     const scrubControl = document.getElementById('scrubControl');
     const editorialTitle = document.querySelector('.editorial-title');
     const compactMedia = window.matchMedia('(max-width: 767px)');
@@ -628,10 +665,7 @@
         }
       }
     };
-    const VIDEO_POSTERS = {
-      desktop: '../assets/posters/interactive-scrub-poster-desktop-900.png?v=pure-presence-4',
-      mobile: '../assets/posters/interactive-scrub-poster-mobile-540.png?v=pure-presence-4'
-    };
+    const FAST_POSTER = '../assets/posters/interactive-scrub-poster-fast-450.png?v=pure-presence-5';
 
     let duration = 0;
     let targetTime = 0;
@@ -641,6 +675,7 @@
     let lastPointerX = null;
     let rafId = 0;
     let lastFrameTime = 0;
+    let mediaStarted = false;
 
     function clamp(value, min, max) {
       return Math.max(min, Math.min(max, value));
@@ -682,11 +717,12 @@
       duration = 0;
       targetTime = 0;
       smoothTime = 0;
+      mediaStage.classList.remove('is-video-ready');
       video.dataset.activeSource = sourceKey;
       video.dataset.activeSize = sizeKey;
       delete video.dataset.mediaError;
       video.textContent = '';
-      video.poster = VIDEO_POSTERS[sizeKey];
+      video.poster = FAST_POSTER;
 
       const source = document.createElement('source');
       source.src = sourceConfig.src;
@@ -699,10 +735,23 @@
       setVideoSource(prefersAppleAlphaVideo() ? 'safariAlpha' : 'webmAlpha');
     }
 
+    function startMedia() {
+      if (mediaStarted) return;
+      mediaStarted = true;
+      selectInitialVideoSource();
+    }
+
     function handleVideoError() {
       stopScrubLoop();
       duration = 0;
+      mediaStage.classList.remove('is-video-ready');
       video.dataset.mediaError = 'true';
+    }
+
+    function revealVideoFrame() {
+      if (video.readyState >= 2 && !video.seeking && !video.dataset.mediaError) {
+        mediaStage.classList.add('is-video-ready');
+      }
     }
 
     function stopScrubLoop() {
@@ -790,8 +839,15 @@
     }
 
     video.addEventListener('loadedmetadata', primeVideo);
-    video.addEventListener('canplay', () => video.pause());
-    video.addEventListener('seeked', ensureScrubLoop);
+    video.addEventListener('loadeddata', revealVideoFrame);
+    video.addEventListener('canplay', () => {
+      video.pause();
+      revealVideoFrame();
+    });
+    video.addEventListener('seeked', () => {
+      revealVideoFrame();
+      ensureScrubLoop();
+    });
     video.addEventListener('error', handleVideoError);
 
     surface.addEventListener('pointerenter', event => {
@@ -883,12 +939,17 @@
 
     compactMedia.addEventListener?.('change', () => {
       const expectedSize = compactMedia.matches ? 'mobile' : 'desktop';
-      if (video.dataset.activeSize !== expectedSize) {
+      if (mediaStarted && video.dataset.activeSize !== expectedSize) {
         selectInitialVideoSource();
       }
     });
 
-    selectInitialVideoSource();
+    if (scrubPoster.complete && scrubPoster.naturalWidth) {
+      startMedia();
+    } else {
+      scrubPoster.addEventListener('load', startMedia, { once: true });
+      scrubPoster.addEventListener('error', startMedia, { once: true });
+    }
   </script>
 </body>
 </html>
